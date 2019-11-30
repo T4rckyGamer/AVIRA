@@ -99,7 +99,7 @@ redis:set(saske..":DataCenter:",GetUser.information.DataCenter)
 redis:set(saske..":UserNameBot:",BOT_User)
 redis:set(saske..":NameBot:",BOT_NAME)
 redis:hset(saske..'username:'..GetUser.information.id,'username','@'..GetUser.information.username:gsub('_',[[\_]]))
-redis:set("TH3saske_INSTALL","Yes")
+redis:set("saske_INSTALL","Yes")
 info = {}
 info.username = '@'..GetUser.information.username
 info.userbot  = BOT_User
@@ -126,20 +126,19 @@ function Start_Bot()
 local TokenBot = io.open('./inc/Token.txt', "r")
 if not TokenBot then
 print('\27[0;33m>>'..[[
+─▄█▀█▄──▄███▄─
+▐█░██████████▌
+─██▒L    A    N    A███─
+──▀████████▀──┊@M0000
+─────▀██▀─────
+┊lana ‿ @M0000
 
 
 
 
 
-▀█████████▄   ▄██████▄     ▄████████    ▄████████
-  ███    ███ ███    ███   ███    ███   ███    ███
-  ███    ███ ███    ███   ███    █▀    ███    █▀
- ▄███▄▄▄██▀  ███    ███   ███          ███
-▀▀███▀▀▀██▄  ███    ███ ▀███████████ ▀███████████ ¦ Dev : @TH3BS
-  ███    ██▄ ███    ███          ███          ███ ¦ Dev : @BLCON
-  ███    ███ ███    ███    ▄█    ███    ▄█    ███
-▄█████████▀   ▀██████▀   ▄████████▀   ▄████████▀  ¦ Source The3saske
----------------------------------------------------------------------
+
+#-------------------------------------------------------------------
 ]]..'\027[0;32m')
 create_config() 
 else
@@ -168,23 +167,13 @@ print(tostring(io.popen("lua inc/locks.lua"):read('*all')))
 end
 
 print('\27[0;33m>>'..[[
-
-
-
-
-
-
-▀█████████▄   ▄██████▄     ▄████████    ▄████████ 
-  ███    ███ ███    ███   ███    ███   ███    ███ 
-  ███    ███ ███    ███   ███    █▀    ███    █▀  
- ▄███▄▄▄██▀  ███    ███   ███          ███        
-▀▀███▀▀▀██▄  ███    ███ ▀███████████ ▀███████████ ¦ Dev : @TH3BS
-  ███    ██▄ ███    ███          ███          ███ ¦ Dev : @BLCON
-  ███    ███ ███    ███    ▄█    ███    ▄█    ███ 
-▄█████████▀   ▀██████▀   ▄████████▀   ▄████████▀  ¦ VERSION » v]]..version..[[
-
--------------------------------------------------------------------
-                                                  
+─▄█▀█▄──▄███▄─
+▐█░██████████▌
+─██▒L    A    N    A███─
+──▀████████▀──┊@M0000
+─────▀██▀─────
+┊lana ‿ @M0000
+#-------------------------------------------------------------------
 ]]..'\027[0;32m'
 ..'¦ TOKEN_BOT: \27[1;34m'..Token..'\027[0;32m\n'
 ..'¦ BOT__INFO: \27[1;34m'.. Bot_User..'\27[0;36m » ('..saske..')\027[0;32m\n'
@@ -433,13 +422,13 @@ function tdcli_update_callback(data)
 	UpdateSourceStart = false
 	EditMsg(data.message_.chat_id_,data.message_.id_,'10% - |█          |')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'20% - |███         |')
-	download_file('https://raw.githubusercontent.com/TH3BS/saske/master/inc/Run.lua','./inc/Run.lua')
+	download_file('https://raw.githubusercontent.com/TEAMSASKE/saske/master/inc/Run.lua','./inc/Run.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'40% - |█████       |')
-	download_file('https://raw.githubusercontent.com/TH3BS/saske/master/inc/locks.lua','./inc/locks.lua')
+	download_file('https://raw.githubusercontent.com/TEAMSASKE/saske/master/inc/locks.lua','./inc/locks.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'60% - |███████     |')
-	download_file('https://raw.githubusercontent.com/TH3BS/saske/master/inc/Script.lua','./inc/Script.lua')
+	download_file('https://raw.githubusercontent.com/TEAMSASKE/saske/master/inc/Script.lua','./inc/Script.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'80% - |█████████   |')
-	download_file('https://raw.githubusercontent.com/TH3BS/saske/master/inc/functions.lua','./inc/functions.lua')
+	download_file('https://raw.githubusercontent.com/TEAMSASKE/saske/master/inc/functions.lua','./inc/functions.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'100% - |█████████████|\n\n🔝*¦* تم تحديث السورس الى اصدار *v'..redis:get(saske..":VERSION")..'*\n📟*¦* تم اعاده تشغيل السورس بنجاح')
 	dofile("./inc/Run.lua")
 	print("Update Source And Reload ~ ./inc/Run.lua")
