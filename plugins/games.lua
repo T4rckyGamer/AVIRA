@@ -1,48 +1,52 @@
 --[[
-الالعاب ل سورس ماكس
-تم تعديل الملف واضافه الالعاب من قبل اونلاين @M0000
+الالعاب ل سورس سِاسِكِيَ
 --]]
 local function games(msg,MsgText)
-if msg.type ~= "pv" then
+if msg.type ~= "pv" and msg.GroupActive then
+
 if MsgText[1] == "تفعيل" and MsgText[2] == "الالعاب" or MsgText[2] == "اللعبه" or MsgText[2] == "اللعبة" then
-if not msg.Admin then return "📛*│* هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n🚶" end
-if not redis:get(lana..'lock_geams'..msg.chat_id_) then 
-return "🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* الالعاب بالتاكيد تم تفعيلها\n✓" 
+if not msg.Admin then return "*️🖥║((تفعيل الالعاب))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{هذا الامر يخص}⊰•\n🖲¦  •⊱{المطور}⊰•\n🖲¦  •⊱{المنشئ}⊰•\n🖲¦  •⊱{المدير}⊰•\n🖲¦  •⊱{الادمن}⊰•\n*" end
+if not redis:get(saske..'lock_geams'..msg.chat_id_) then 
+return "*🖥║((تفعيل الالعاب))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{مرحباً عزيزي "..msg.TheRankCmd.."}⊰•\n🖲¦  •⊱{الالعاب بالتأكيد مفعله}⊰•\n*" 
 else 
-redis:del(lana..'lock_geams'..msg.chat_id_) 
-return "🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* تم تفعيل الالعاب \n✓" 
+redis:del(saske..'lock_geams'..msg.chat_id_) 
+return "*🖥║((تفعيل الالعاب))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{مرحباً عزيزي "..msg.TheRankCmd.."}⊰•\n🖲¦  •⊱{تم تفعيل الالعاب}⊰•\n*" 
 end 
 end
+
 if MsgText[1] == "تعطيل" and MsgText[2] == "الالعاب" or MsgText[2] == "اللعبه" or MsgText[2] == "اللعبة" then
-if not msg.Admin then return "📛*│* هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n🚶" end
-if redis:get(lana..'lock_geams'..msg.chat_id_) then 
-return "🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* الالعاب بالتأكيد معطله\n✓" 
+if not msg.Admin then return "*️🖥║((تعطيل الالعاب))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{هذا الامر يخص}⊰•\n🖲¦  •⊱{المطور}⊰•\n🖲¦  •⊱{المنشئ}⊰•\n🖲¦  •⊱{المدير}⊰•\n🖲¦  •⊱{الادمن}⊰•\n*" end
+if redis:get(saske..'lock_geams'..msg.chat_id_) then 
+return "*🖥║((تعطيل الالعاب))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{مرحباً عزيزي "..msg.TheRankCmd.."}⊰•\n🖲¦  •⊱{الالعاب بالتأكيد معطله}⊰•\n*" 
 else
-redis:set(lana..'lock_geams'..msg.chat_id_,true)  
-return "🙋🏼‍♂️*╿* أهلا عزيزي "..msg.TheRankCmd.."\n📡*╽* تم تعطيل الالعاب\n✓" 
+redis:set(saske..'lock_geams'..msg.chat_id_,true)  
+return "*🖥║((تعطيل الالعاب))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{مرحباً عزيزي "..msg.TheRankCmd.."}⊰•\n🖲¦  •⊱{تم تعطيل الالعاب}⊰•\n*" 
 end   
 end
+
 if MsgText[1] == "اضف رسائل" and msg.reply_to_message_id_ == 0 then       
-if not msg.Creator then 
-return "📛*│* هذا الامر يخص {المطور,المنشئ} فقط  \n🚶" 
+if not msg.Creator then return 
+"📛*¦* هذا الامر يخص {المطور، المنشئ} فقط  \n🚶" 
 end 
 local ID_USER = MsgText[2]
-redis:set(lana..'SET:ID:USER'..msg.chat_id_,ID_USER)  
-redis:setex(lana.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_,500,true)  
-sendMsg(msg.chat_id_,msg.id_,'*📊│ ارسل لي عدد الرسائل الذي تريده*')
+redis:set(saske..'SET:ID:USER'..msg.chat_id_,ID_USER)  
+redis:setex(saske.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_,500,true)  
+sendMsg(msg.chat_id_,msg.id_,'*📊¦ ارسل لي عدد الرسائل الذي تريده*')
 end
-if MsgText[1] == "اضف نقاط" and msg.reply_to_message_id_ == 0 then       
-if not msg.Creator then 
-return "📛*│* هذا الامر يخص {المطور,المنشئ} فقط  \n🚶" 
+if MsgText[1] == "اضف مجوهرات" and msg.reply_to_message_id_ == 0 then       
+if not msg.Creator then return 
+"📛*¦* هذا الامر يخص {المطور، المنشئ} فقط  \n🚶" 
 end 
 local ID_USER = MsgText[2]
-redis:set(lana..'SET:ID:USER:NUM'..msg.chat_id_,ID_USER)  
-redis:setex(lana.."SETEX:NUM"..msg.chat_id_..""..msg.sender_user_id_,500,true)  
-sendMsg(msg.chat_id_,msg.id_,'*📊│ارسل لي عدد النقاط الذي تريده*')
+redis:set(saske..'SET:ID:USER:NUM'..msg.chat_id_,ID_USER)  
+redis:setex(saske.."SETEX:NUM"..msg.chat_id_..""..msg.sender_user_id_,500,true)  
+sendMsg(msg.chat_id_,msg.id_,'*📊¦ ارسل لي عدد المجوهرات الذي تريده*')
 end
-if not redis:get(lana..'lock_geams'..msg.chat_id_) and msg.GroupActive then
+if not redis:get(saske..'lock_geams'..msg.chat_id_) and msg.GroupActive then
+
+
 if MsgText[1] == 'اسئله' or MsgText[1] == 'ختيارات' or MsgText[1] == 'بدء الاسئله' then   
-redis:set(lana.."GAME:S"..msg.chat_id_,true) 
+redis:set(saske.."GAME:S"..msg.chat_id_,true) 
 t1 = [[
 ماهو اطول نهر في العالم 
 1- النيل  
@@ -50,7 +54,7 @@ t1 = [[
 3- نهر الكونغو
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t2 = [[
 ماعدد عظام الوجه?
@@ -58,7 +62,7 @@ t2 = [[
 2- 13
 3- 14 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t3 =[[
 كراسي بيضاء وجدران ورديه اذا اغلقته اصبح ظلام  فمن اكون?
@@ -68,7 +72,7 @@ t3 =[[
 3- الثلاجه
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t4 =[[
 كم جزء تحتوي مسلسل وادي الذئاب?
@@ -78,7 +82,7 @@ t4 =[[
 3- 11
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t5 =[[
 كم جزء يحتوي القران الكريم?
@@ -88,7 +92,7 @@ t5 =[[
 3- 30 
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t6 =[[
 من هوه اغنى رئيس في العالم??
@@ -98,7 +102,7 @@ t6 =[[
 3- بوتين  
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل الجواب الصحيح فقط
 ]]
 
 t7 =[[
@@ -106,10 +110,10 @@ t7 =[[
 
 1-لاري بايج 
 2- بيا غايتز
-3- ستيف جوبر
+3- مارك زوكيربرج
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t8 =[[
 ماهي عاصمه فرنسا?
@@ -119,7 +123,7 @@ t8 =[[
 3- موسكو 
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t9 =[[
 ماعدد دول العربيه التي توجد في افريقيا 
@@ -128,7 +132,7 @@ t9 =[[
 2- 17
 3- 9
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t11 =[[
 ماهو الحيوان الذي يحمل 50 فوق وزنه ?
@@ -137,7 +141,7 @@ t11 =[[
 3- الثور
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t12 =[[
 ماذا يوجد بيني وبينك؟  
@@ -146,7 +150,7 @@ t12 =[[
 3-حرف الواو  
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقطز
 ]]
 t13 =[[
 ماهو الشيء النبات ينبت للانسان بلا بذر؟
@@ -155,7 +159,7 @@ t13 =[[
 3- الشعر
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل الجواب الصحيح فقط
 ]]
 t14 =[[
 م̷ـــِْن هو اول الرسول الى الارض؟
@@ -164,7 +168,7 @@ t14 =[[
 3-ابراهيم 
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t15 =[[
 ما هو الشّيء الذي يستطيع المشي بدون أرجل والبكاء بدون أعين؟
@@ -173,16 +177,16 @@ t15 =[[
 3- نهر
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t16 =[[
 ما الشيء الذي نمتلكه , لكنّ غيرنا يستعمله أكثر منّا؟
 1- العمر
 2- ساعه
-3- الاسم
+3- الحذاء
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t17 =[[
 اصفر اللون سارق عقول اهل الكون وحارمهم لذيذ النوم
@@ -191,7 +195,7 @@ t17 =[[
 3- ذهب
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t18 =[[
 في الليل ثلاثة لكنه في النهار واحده فما هو
@@ -200,7 +204,7 @@ t18 =[[
 3- حرف الراء
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t19 =[[
 على قدر اصل العزم تأتي?
@@ -209,7 +213,7 @@ t19 =[[
 3- المبائب
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 
 t20 =[[
@@ -219,7 +223,7 @@ t20 =[[
 3- قوانص
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t21 =[[
 اله اتسعلمت قديما في الحروب?
@@ -228,7 +232,7 @@ t21 =[[
 3- المنجنيق 
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t22 =[[
 تقع لبنان في قاره?
@@ -237,7 +241,7 @@ t22 =[[
 3- امركيا الشماليه
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 
 t23 =[[
@@ -247,7 +251,7 @@ t23 =[[
 3- النمر
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t24 =[[
 كم صفرا للمليون ?
@@ -255,7 +259,7 @@ t24 =[[
 2- 3
 3-6
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t25 =[[
 ما اسم صغير الحصان?
@@ -264,7 +268,7 @@ t25 =[[
 3- عجل
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t26 =[[
 ما الحيوان الذي ينام واحدى عينه مفتوحه?
@@ -274,7 +278,7 @@ t26 =[[
 3- الثعلب
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t27 =[[
 ماهي القاره التي تلقب بالقاره العجوز?
@@ -284,7 +288,7 @@ t27 =[[
 3- افريقيا 
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t28 =[[
 ما اسم المعدن الموجود فيي الحاله السائله 
@@ -294,7 +298,7 @@ t28 =[[
 3- الزئبق  
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t29 =[[
 ماهي عاصمه انجلترا?
@@ -303,7 +307,7 @@ t29 =[[
 3- تركيا
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t30 =[[
 ماهو الشئ الذي برأسه سبع فتحات
@@ -313,7 +317,7 @@ t30 =[[
 3- الانسان 
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t31 =[[
 ماهي عاصمه اليابان ?
@@ -322,7 +326,7 @@ t31 =[[
 3- طوكيو 
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 t32 =[[
 من هي زوجه الرسول الاكبر منه سنآ?
@@ -332,82 +336,124 @@ t32 =[[
 3- خديجه 
 
 
-📮│ارسل  الجواب الصحيح فقط
+ 📮¦ ارسل  الجواب الصحيح فقط
 ]]
 TAHA = {t16,t17,t18,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30,t31,t32,t1,t2,t3,t4,t5,t6,t7,t8,t9,t11,t12,t13,t14,t15}
 local SENDTEXT = TAHA[math.random(#TAHA)]
 if SENDTEXT:find('النيل') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'النيل') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'النيل') 
 elseif SENDTEXT:find('14') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'14') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'14') 
 elseif SENDTEXT:find('الفم') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'الفم') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'الفم') 
 elseif SENDTEXT:find('11') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'11') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'11') 
 elseif SENDTEXT:find('30') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'30') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'30') 
 elseif SENDTEXT:find('بوتين') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'بوتين') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'بوتين') 
 elseif SENDTEXT:find('ستيف جوبر') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'ستيف جوبر') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'ستيف جوبر') 
 elseif SENDTEXT:find('باريس') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'باريس') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'باريس') 
 elseif SENDTEXT:find('10') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'10') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'10') 
 elseif SENDTEXT:find('النمل') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'النمل') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'النمل') 
 elseif SENDTEXT:find('حرف الواو') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'حرف الواو') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'حرف الواو') 
 elseif SENDTEXT:find('الشعر') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'الشعر') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'الشعر') 
 elseif SENDTEXT:find('ابراهيم') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'ابراهيم') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'ابراهيم') 
 elseif SENDTEXT:find('سحاب') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'سحاب') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'سحاب') 
 elseif SENDTEXT:find('الاسم') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'الاسم') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'الاسم') 
 elseif SENDTEXT:find('ذهب') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'ذهب') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'ذهب') 
 elseif SENDTEXT:find('حرف الام') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'حرف الام') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'حرف الام') 
 elseif SENDTEXT:find('العزائم') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'العزائم') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'العزائم') 
 elseif SENDTEXT:find('انسات') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'انسات') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'انسات') 
 elseif SENDTEXT:find('المنجنيق') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'المنجنيق') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'المنجنيق') 
 elseif SENDTEXT:find('اسيا') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'اسيا') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'اسيا') 
 elseif SENDTEXT:find('الاسد') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'الاسد') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'الاسد') 
 elseif SENDTEXT:find('6') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'6') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'6') 
 elseif SENDTEXT:find('مهر') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'مهر') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'مهر') 
 elseif SENDTEXT:find('الدلفين') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'الدلفين') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'الدلفين') 
 elseif SENDTEXT:find('اوروبا') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'اوروبا') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'اوروبا') 
 elseif SENDTEXT:find('الزئبق') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'الزئبق') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'الزئبق') 
 elseif SENDTEXT:find('لندن') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'لندن') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'لندن') 
 elseif SENDTEXT:find('الانسان') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'الانسان') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'الانسان') 
 elseif SENDTEXT:find('طوكيو') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'طوكيو') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'طوكيو') 
 elseif SENDTEXT:find('خديجه') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'خديجه') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'خديجه') 
 end
 sendMsg(msg.chat_id_,msg.id_,SENDTEXT)     
 return false  
 end
 
+if MsgText[1] == 'محيبس' or MsgText[1] == 'بات' then   
+Num = math.random(1,6)
+redis:set(saske.."GAMES"..msg.chat_id_,Num) 
+TEST = [[
+* 🎮║((المحيبس))
+ء➖➖➖➖➖➖™
+🖲¦  •⊱{مرحباً عزيزي}⊰•
+🖲¦  •⊱{اليك ارقام الايدي}⊰•
+🖲¦  •⊱{ارسل رقم اليد}⊰•
+🖲¦  •⊱{التي يوجد فيها المحبس}⊰•
+ء➖➖➖➖➖➖➖➖➖➖™
+➀       ➁     ➂      ➃      ➄     ➅
+↓      ↓     ↓      ↓     ↓     ↓
+👊 ‹› 👊 ‹› 👊 ‹› 👊 ‹› 👊 ‹› 👊
+*
+]]
+sendMsg(msg.chat_id_,msg.id_,TEST)   
+redis:setex(saske.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 100, true)  
+return false  
+end
+
+
+if MsgText[1] == 'تخمين' then   
+Num = math.random(1,10)
+redis:set(saske.."GAMES"..msg.chat_id_,Num) 
+TEST = [[
+* 🎮║((تخمين))
+ء➖➖➖➖➖➖™
+🖲¦  •⊱{مرحباً عزيزي}⊰•
+🖲¦  •⊱{اليك ارقام التخمين}⊰•
+🖲¦  •⊱{ارسل الرقم الذي خمنته}⊰•
+ء➖➖➖➖➖➖➖➖➖➖™
+•⊱{1-2-3-4-5-6-7-8-9-10}⊰•
+ء➖➖➖➖➖➖➖➖➖➖➖➖➖™
+*
+]]
+sendMsg(msg.chat_id_,msg.id_,TEST)   
+redis:setex(saske.."SET:t" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 100, true)  
+return false  
+end
+
+
 if MsgText[1] == 'المختلف' then
-katu = {'😸','☠','🐼','🐇','🌑','🌚','⭐️','✨','⛈','🌥','⛄️','👨‍🔬','👨‍💻','👨‍🔧','👩‍🍳','🧚‍♀','🧜‍♂','🧝‍♂','🙍‍♂','🧖‍♂','👬','👨‍👨‍👧','🕓','🕤','⌛️','📅',
+katu = {'😸','☠','🐼','🐇','🌑','🌚','⭐️','✨','⛈','🌥','⛄️','👨‍🔬','👨‍💻','👨‍🔧','👩‍🍳','🧚‍♀','🧜‍♂','🧝‍♂','🙍‍♂','🧖‍♂','👬','👨‍👨‍👧','🕒','🕤','⌛️','📅',
 };
 name = katu[math.random(#katu)]
-redis:set(lana..':Set_alii:'..msg.chat_id_,name)
+redis:set(saske..':Set_alii:'..msg.chat_id_,name)
 name = string.gsub(name,'😸','😹😹😹😹😹😹😹😹😸😹😹😹😹')
 name = string.gsub(name,'☠','💀💀💀💀💀💀💀☠💀💀💀💀💀')
 name = string.gsub(name,'🐼','👻👻👻👻👻👻👻🐼👻👻👻👻👻')
@@ -430,7 +476,7 @@ name = string.gsub(name,'🙍‍♂','🙎‍♂🙎‍♂🙎‍♂🙎‍♂�
 name = string.gsub(name,'🧖‍♂','🧖‍♀🧖‍♀🧖‍♀🧖‍♀🧖‍♀🧖‍♂🧖‍♀🧖‍♀🧖‍♀🧖‍♀')
 name = string.gsub(name,'👬','👭👭👭👭👭👬👭👭👭')
 name = string.gsub(name,'👨‍👨‍👧','👨‍👨‍👦👨‍👨‍👦👨‍👨‍👦👨‍👨‍👦👨‍👨‍👧👨‍👨‍👦👨‍👨‍👦')
-name = string.gsub(name,'🕓','🕒🕒🕒🕒🕒🕒🕓🕒🕒🕒')
+name = string.gsub(name,'🕒','🕒🕒🕒🕒🕒🕒🕓🕒🕒🕒')
 name = string.gsub(name,'🕤','🕥🕥🕥🕥🕥🕤🕥🕥🕥')
 name = string.gsub(name,'⌛️','⏳⏳⏳⏳⏳⏳⌛️⏳⏳')
 name = string.gsub(name,'📅','📆📆📆📆📆📆📅📆📆')
@@ -442,7 +488,7 @@ katu = {
 'جوز','ضراطه','الحبل','الحافي','شقره','بيدك','سلايه','النخله','الخيل','حداد','المبلل','يركص','قرد','العنب','العمه','الخبز','بالحصاد','شهر','شكه','يكحله',
 };
 name = katu[math.random(#katu)]
-redis:set(lana..':Set_Amthlh:'..msg.chat_id_,name)
+redis:set(saske..':Set_Amthlh:'..msg.chat_id_,name)
 name = string.gsub(name,'جوز','ينطي____للماعده سنون')
 name = string.gsub(name,'ضراطه','الي يسوق المطي يتحمل___')
 name = string.gsub(name,'بيدك','اكل___محد يفيدك')
@@ -469,7 +515,7 @@ end
 if MsgText[1] == 'حزوره' then
 katu = {'امي','انا','المخده','الهواء','الهواء','القمر','الباب المفتوح','النهر','الكف','الغيم','اسمك','حرف الام','الابجديه','الدائره','الساعه','تموز','الصمت','السلحفات','كم الساعه','شجره العائله','ضفدع','خليه النحل','الصوت','الجوع','الكتاب','البيض','الاسفنجه','البرتقال','الكفن','الساعه','ارجل المنضده','البصل','الوقت','النار','الثلج','العمر','المسمار','الحفره','المشط','التلفون','الجرص','المراه','الغداء','الفيل','الصدئ','الهواء','عقرب الساعه'};
 name = katu[math.random(#katu)]
-redis:set(lana..':Set_Hzorh:'..msg.chat_id_,name)
+redis:set(saske..':Set_Hzorh:'..msg.chat_id_,name)
 name = string.gsub(name,'امي','اخت خالك ومو خالتك منو')
 name = string.gsub(name,'انا','بنت امك وابنت ابوك ومش اختك ولاخوك منو')
 name = string.gsub(name,'المخده','اني خفيفه واني لطيفه اكوم من حضن الوزير اكعد بحضن الخليفه أزيح الهموم  واخلي لحبيب نايم منو انني')
@@ -520,46 +566,22 @@ return '  اول واحد يحلها » {* '..name..' *} '
 end
 
 
-if MsgText[1] == 'محيبس' or MsgText[1] == 'بات' then   
-Num = math.random(1,6)
-redis:set(lana.."GAMES"..msg.chat_id_,Num) 
-TEST = [[
-*➀       ➁     ➂      ➃      ➄     ➅
-↓      ↓     ↓      ↓     ↓     ↓
-👊 ‹› 👊 ‹› 👊 ‹› 👊 ‹› 👊 ‹› 👊
-
-
-📮╿اختر لأستخراج المحيبس الايد التي تحمل المحيبس 
-🎁╽الفائز يحصل على { 3 } من النقاط *
-]]
-sendMsg(msg.chat_id_,msg.id_,TEST)   
-redis:setex(lana.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 100, true)  
-return false  
-end
-if MsgText[1] == 'خمن' or MsgText[1] == 'تخمين' then   
-Num = math.random(1,20)
-redis:set(lana.."GAMES:NUM"..msg.chat_id_,Num) 
-TEST = '*\n📮│اهلا بك عزيزي في لعبة التخمين :\nٴ━━━━━━━━━━\n'..'⚠│ملاحظه لديك { 3 } محاولات فقط فكر قبل ارسال تخمينك \n\n'..'🔖│سيتم تخمين عدد ما بين ال {1 و 20} اذا تعتقد انك تستطيع الفوز جرب واللعب الان ؟ \n💥*'
-sendMsg(msg.chat_id_,msg.id_,TEST)
-redis:setex(lana.."GAME:TKMEN" .. msg.chat_id_ .. "" .. msg.sender_user_id_, 100, true)  
-return false  
-end
 if (MsgText[1] == 'اسرع' or MsgText[1] == 'الاسرع') then
 local NUM = math.random(10,1000)
-redis:set(lana..':NUM_SET:'..msg.chat_id_,(NUM * 3))
+redis:set(saske..':NUM_SET:'..msg.chat_id_,(NUM * 3))
 local Smiles = {'🍏','🍎','🍐',NUM,NUM,NUM,NUM,NUM,'🍊','🍋','🍌','🍉',NUM,NUM,NUM,NUM,NUM,'🍇','🍓','🍈','🍒',NUM,NUM,NUM,NUM,NUM,'🍑','🍍','🥥','🥝','🍅',NUM,NUM,NUM,NUM,NUM,'🍆','🥑','🥦','🥒',NUM,NUM,NUM,NUM,NUM,'🌶','🌽','🥕','🥔','🍠','🥐','🍞',NUM,NUM,NUM,NUM,NUM,'🥖','🥨','🧀','🥚','🍳','🥞','🥓',NUM,NUM,NUM,NUM,NUM,'🥩','🍗','🍖','🌭','🍔','🍟',NUM,NUM,NUM,NUM,NUM,'🍕','🥪','🥙','🍼','☕️','🍵',NUM,NUM,NUM,NUM,NUM,'🥤','🍶','🍺','🍻',NUM,NUM,NUM,NUM,NUM,'🏀','⚽️','🏈','⚾️','🎾','🏐',NUM,NUM,NUM,NUM,NUM,'🏉','🎱','🏓','🏸','🥅','🎰','🎮',NUM,NUM,NUM,NUM,NUM,'🎳','🎯','🎲','🎻','🎸','🎺','🥁','🎹',NUM,NUM,NUM,NUM,NUM,'🎼','🎧','🎤','🎬','🎨','🎭',NUM,NUM,NUM,NUM,NUM,'🎪','🎟','🎫','🎗','🏵','🎖','🏆','🥌','🛷','🚕','🚗','🚙','🚌',NUM,NUM,NUM,NUM,NUM,'🚎','🏎','🚓','🚑','🚚','🚛','🚜','🇮🇶','⚔','🛡','🔮','🌡','💣','📌',NUM,NUM,NUM,NUM,NUM,'📍','📓','📗','📂','📅','📪','📫','📬',NUM,NUM,NUM,NUM,NUM,'📭','⏰','📺','🎚','☎️',NUM,NUM,NUM,NUM,NUM,'📡'}
 Emoji = Smiles[math.random(#Smiles)]
-redis:set(lana..':Set_Smile:'..msg.chat_id_,Emoji)
-if tonumber(redis:get(lana..':Set_Smile:'..msg.chat_id_)) == tonumber(redis:get(lana..':NUM_SET:'..msg.chat_id_)) then
-return '◀️┇اول من يكتب هذه العدد يفوز ؛  ››`'..(redis:get(lana..':Set_Smile:'..msg.chat_id_))..'`'
+redis:set(saske..':Set_Smile:'..msg.chat_id_,Emoji)
+if tonumber(redis:get(saske..':Set_Smile:'..msg.chat_id_)) == tonumber(redis:get(saske..':NUM_SET:'..msg.chat_id_)) then
+return '◀️┇اول من يكتب هذه العدد يفوز ؛  ››`'..(redis:get(saske..':Set_Smile:'..msg.chat_id_))..'`'
 else
-return '️┇اول من يكتب هذه السمايل يفوز ››    `'..(redis:get(lana..':Set_Smile:'..msg.chat_id_))..'`'
+return '️┇اول من يكتب هذه السمايل يفوز ››    `'..(redis:get(saske..':Set_Smile:'..msg.chat_id_))..'`'
 end
 end
 if MsgText[1] == 'ترتيب' then
 katu = {'سحور','سياره','استقبال','قنفه','ايفون','بزونه','مطبخ','كرستيانو','دجاجه','مدرسه','الوان','غرفه','ثلاجه','كهوه','سفينه','العراق','محطه','طياره','رادار','منزل','مستشفى','كهرباء','تفاحه','اخطبوط','سلمون','فرنسا','برتقاله','تفاح','مطرقه','بتيته','لهانه','شباك','باص','سمكه','ذباب','تلفاز','حاسوب','انترنيت','ساحه','جسر'};
 name = katu[math.random(#katu)]
-redis:set(lana..':Set_Arg:'..msg.chat_id_,name)
+redis:set(saske..':Set_Arg:'..msg.chat_id_,name)
 name = string.gsub(name,'سحور','س ر و ح')
 name = string.gsub(name,'سياره','ه ر س ي ا')
 name = string.gsub(name,'استقبال','ل ب ا ت ق س ا')
@@ -603,48 +625,16 @@ name = string.gsub(name,'جسر','ر ج س')
 return '  اسرع واحد يرتبها {* '..name..' *} ' 
 end
 if MsgText[1] == 'معاني' then
-katu = {'قرد','حصان','ارنب','حيه','نمله','قطه','كلب','ثور','ماعز','خروف','سلحفات','حوت','ورده','نخله','شجره','شمس','هلال','كامره','حلزون','مسدس','طياره','سياره','كرز','ركي','فروله','منزل','كره','نجمه','ساعه','راديو','باب','قارب','دجاجه','بطريق','ضفدع','بومه','نحله','ديج','جمل','بقره','دولفين','تمساح','قرش','نمر','اخطبوط','سمكه','خفاش','اسد','فأر','ذئب','فراشه','عقرب','زرافه','قنفذ','تفاحه','باذنجان'}
+katu = {'قرد','دجاجه','بطريق','ضفدع','بومه','نحله','ديج','جمل','بقره','دولفين','تمساح','قرش','نمر','اخطبوط','سمكه','خفاش','اسد','فأر','ذئب','فراشه','عقرب','زرافه','قنفذ','تفاحه','باذنجان'}
 name = katu[math.random(#katu)]
-redis:set(lana..':Set_Name_Meant:'..msg.chat_id_,name)
+redis:set(saske..':Set_Name_Meant:'..msg.chat_id_,name)
 name = string.gsub(name,'قرد','🐒')
-name = string.gsub(name,'حصان','🐎')
-name = string.gsub(name,'ارنب','🐇')
-name = string.gsub(name,'حيه','🐍')
-name = string.gsub(name,'نمله','🐜')
-name = string.gsub(name,'قطه','🐈')
-name = string.gsub(name,'كلب','🐕')
-name = string.gsub(name,'ثور','🐂')
-name = string.gsub(name,'ماعز','🐐')
-name = string.gsub(name,'خروف','🐏')
-name = string.gsub(name,'سلحفات','🐢')
-name = string.gsub(name,'حوت','🐳')
-name = string.gsub(name,'ورده','🌷')
-name = string.gsub(name,'نخله','🌴')
-name = string.gsub(name,'شجره','🌳')
-name = string.gsub(name,'شمس','🌞')
-name = string.gsub(name,'هلال','🌙')
-name = string.gsub(name,'كامره','📷')
-name = string.gsub(name,'كامره','📹')
-name = string.gsub(name,'حلزون','🐌')
-name = string.gsub(name,'مسدس','🔫')
-name = string.gsub(name,'طياره','🚁')
-name = string.gsub(name,'سياره','🚘')
-name = string.gsub(name,'كرز','🍒')
-name = string.gsub(name,'ركي','🍉')
-name = string.gsub(name,'فروله','🍓')
-name = string.gsub(name,'منزل','🏫')
-name = string.gsub(name,'كره','⚽')
-name = string.gsub(name,'نجمه','🌟')
-name = string.gsub(name,'ساعه','🕞')
-name = string.gsub(name,'راديو','📻')
-name = string.gsub(name,'باب','🚪')
-name = string.gsub(name,'قارب','⛵')
 name = string.gsub(name,'دجاجه','🐔')
 name = string.gsub(name,'بطريق','🐧')
 name = string.gsub(name,'ضفدع','🐸')
 name = string.gsub(name,'بومه','🦉')
 name = string.gsub(name,'نحله','🐝')
-name = string.gsub(name,'ديج','🐓')
+name = string.gsub(name,'ديك','🐓')
 name = string.gsub(name,'جمل','🐫')
 name = string.gsub(name,'بقره','🐄')
 name = string.gsub(name,'دولفين','🐬')
@@ -663,185 +653,457 @@ name = string.gsub(name,'زرافه','🦒')
 name = string.gsub(name,'قنفذ','🦔')
 name = string.gsub(name,'تفاحه','🍎')
 name = string.gsub(name,'باذنجان','🍆')
-return '◀️│ اول من يكتب معنى السمايل يفوز { '..name..' }'
+return '◀️¦ اول من يكتب معنى السمايل يفوز { '..name..' }'
 end
+
+if MsgText[1] == 'مجوهراتي' then 
+local points = redis:get(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
+if points and points ~= "0" then
+return '*📮¦ عدد المجوهرات التي ربحتها هي » { '..points..' }\n📬¦ تسطيع بيع مجوهراتك ولحصول على (100) رساله مقابل كل مجوهرات من المجوهرات *\n'
+else
+return ' *💬¦ ليس لديك مجوهرات ،\n📬¦ للحصول ؏ مجوهرات ،\n📮¦ ارسل الالعاب وابدأ اللعب ! *'
+end
+end
+
 if MsgText[1] == 'عكس' or MsgText[1] == 'العكس' or MsgText[1] == 'العكسس' then   
-redis:set(lana.."GAME:S"..msg.chat_id_,true) 
+redis:set(saske.."GAME:S"..msg.chat_id_,true) 
 H1 = [[
-✖️│عكس كلمه » {مافهمت} ⚜️
+✖️¦عكس كلمه » {مافهمت} ⚜️
 ]]
 H2 = [[
-✖️│عكس كلمه » {جبان} ⚜️
+✖️¦عكس كلمه » {جبان} ⚜️
 ]]
 H3 =[[
-✖️│عكس كلمه » {ميت} ⚜️
+✖️¦عكس كلمه » {ميت} ⚜️
 ]]
 H4 =[[
-✖️│عكس كلمه » {كسول} ⚜️
+✖️¦عكس كلمه » {كسول} ⚜️
 ]]
 H5 =[[
-✖️│عكس كلمه » {زين} ⚜️
+✖️¦عكس كلمه » {زين} ⚜️
 ]]
 H6 =[[
-✖️│عكس كلمه » {عطشان} ⚜️
+✖️¦عكس كلمه » {عطشان} ⚜️
 ]]
 
 H7 =[[
-✖️│عكس كلمه » {بارده} ⚜️
+✖️¦عكس كلمه » {بارده} ⚜️
 ]]
 H8 =[[
-✖️│عكس كلمه » {خايف} ⚜️
+✖️¦عكس كلمه » {خايف} ⚜️
 ]]
 H9 =[[
-✖️│عكس كلمه » {امام} ⚜️
+✖️¦عكس كلمه » {امام} ⚜️
 ]]
 H11 =[[
-✖️│عكس كلمه » {خاين} ⚜️
+✖️¦عكس كلمه » {خاين} ⚜️
 ]]
 H12 =[[
-✖️│عكس كلمه » {طويل} ⚜️
+✖️¦عكس كلمه » {طويل} ⚜️
 ]]
 H13 =[[
-✖️│عكس كلمه » {صلب} ⚜️
+✖️¦عكس كلمه » {صلب} ⚜️
 ]]
 H14 =[[
-✖️│عكس كلمه » {ناعم} ⚜️
+✖️¦عكس كلمه » {ناعم} ⚜️
 ]]
 H15 =[[
-✖️│عكس كلمه » {مجنون} ⚜️
+✖️¦عكس كلمه » {مجنون} ⚜️
 ]]
 H16 =[[
-✖️│عكس كلمه » {غبي} ⚜️
+✖️¦عكس كلمه » {غبي} ⚜️
 ]]
 H17 =[[
-✖️│عكس كلمه » {ظلمه} ⚜️
+✖️¦عكس كلمه » {ظلمه} ⚜️
 ]]
 H18 =[[
-✖️│عكس كلمه » {مسموح} ⚜️
-]]
-H19 =[[
-✖️│عكس كلمه » {ماسمعك} ⚜️
+✖️¦عكس كلمه » {مسموح} ⚜️
 ]]
 
 H20 =[[
-✖️│عكس كلمه » {تعال} ⚜️
+✖️¦عكس كلمه » {تعال} ⚜️
 ]]
-HUSSEIN = {H16,H17,H18,H19,H20,H1,H2,H3,H4,H5,H6,H7,H8,H9,H11,H12,H13,H14,H15}
+HUSSEIN = {H17,H18,H19,H20,H1,H2,H3,H4,H5,H6,H7,H8,H9,H11,H12,H13,H14,H15}
 local SENDTEXT = HUSSEIN[math.random(#HUSSEIN)]
 if SENDTEXT:find('فهمت') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'فهمت') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'فهمت') 
 elseif SENDTEXT:find('مو جبان') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'مو جبان') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'مو جبان') 
 elseif SENDTEXT:find('عدل') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'عدل') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'عدل') 
 elseif SENDTEXT:find('نشط') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'نشط') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'نشط') 
 elseif SENDTEXT:find('مو زين') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'مو زين') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'مو زين') 
 elseif SENDTEXT:find('مو عطشان') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'مو عطشان') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'مو عطشان') 
 elseif SENDTEXT:find('حاره') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'حاره') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'حاره') 
 elseif SENDTEXT:find('مو خايف') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'مو خايف') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'مو خايف') 
 elseif SENDTEXT:find('خلف') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'خلف') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'خلف') 
 elseif SENDTEXT:find('وفي') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'وفي') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'وفي') 
 elseif SENDTEXT:find('قزم') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'قزم') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'قزم') 
 elseif SENDTEXT:find('لين') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'لين') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'لين') 
 elseif SENDTEXT:find('خشن') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'خشن') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'خشن') 
 elseif SENDTEXT:find('عاقل') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'عاقل') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'عاقل') 
 elseif SENDTEXT:find('ذكي') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'ذكي') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'ذكي') 
 elseif SENDTEXT:find('مو ظلمه') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'مو ظلمه') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'مو ظلمه') 
 elseif SENDTEXT:find('مو مسموح') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'مو مسموح') 
-elseif SENDTEXT:find('اسمعك') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'اسمعك') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'مو مسموح') 
 elseif SENDTEXT:find('روح') then
-redis:set(lana.."GAME:CHER"..msg.chat_id_,'روح') 
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'روح') 
 end
 sendMsg(msg.chat_id_,msg.id_,SENDTEXT)     
 return false  
 end
 
-if MsgText[1] == 'نقاطي' then 
-local points = redis:get(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
-if points and points ~= "0" then
-return '*📮╿عدد النقاط التي ربحتها هي » { '..points..' }\n📬╽تسطيع بيع نقاطك ولحصول على (100) رساله مقابل كل نقطه من النقاط *\n'
-else
-return ' *💬╿ليس لديك نقاط ،\n📬│للحصول ؏ النقاط ،\n📮╽ارسل الالعاب وابدأ اللعب ! *'
+if MsgText[1] == 'رياضيات' or MsgText[1] == 'الرياضيات' then   
+redis:set(saske.."GAME:SE"..msg.chat_id_,true) 
+K1 = [[
+✖️¦12+12+4 ⚜️
+]]
+K2 = [[
+✖️¦51+2+9 ⚜️
+]]
+K3 =[[
+✖️¦14+90+5 ⚜️
+]]
+K4 =[[
+✖️¦46+23+19 ⚜️
+]]
+K5 =[[
+✖️¦19+83+90 ⚜️
+]]
+K6 =[[
+✖️¦10+98+7 ⚜️
+]]
+
+K7 =[[
+✖️¦76+41+7 ⚜️
+]]
+K8 =[[
+✖️¦15+25+62 ⚜️
+]]
+K9 =[[
+✖️¦2+36+69 ⚜️
+]]
+K11 =[[
+✖️¦25+8+57 ⚜️
+]]
+K12 =[[
+✖️¦36+59+87 ⚜️
+]]
+K13 =[[
+✖️¦3+65+54 ⚜️
+]]
+K14 =[[
+✖️¦15+99+81 ⚜️
+]]
+K15 =[[
+✖️¦34+64+25 ⚜️
+]]
+K16 =[[
+✖️¦34+65+2 ⚜️
+]]
+K17 =[[
+✖️¦15+45+8 ⚜️
+]]
+K18 =[[
+✖️¦14+39+61 ⚜️
+]]
+K19 =[[
+✖️¦14+89+61 ⚜️
+]]
+K20 =[[
+✖️¦35+68+91 ⚜️
+]]
+KENAN = {K17,K18,K19,K20,K1,K2,K3,K4,K5,K6,K7,K8,K9,K11,K12,K13,K14,K15}
+local SENDTEXT = KENAN[math.random(#KENAN)]
+if SENDTEXT:find('68') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'68') 
+elseif SENDTEXT:find('114') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'114') 
+elseif SENDTEXT:find('164') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'164') 
+elseif SENDTEXT:find('194') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'194') 
+elseif SENDTEXT:find('28') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'28') 
+elseif SENDTEXT:find('62') then
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'62') 
+elseif SENDTEXT:find('109') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'109') 
+elseif SENDTEXT:find('88') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'88') 
+elseif SENDTEXT:find('192') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'192') 
+elseif SENDTEXT:find('115') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'115') 
+elseif SENDTEXT:find('124') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'124') 
+elseif SENDTEXT:find('102') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'102') 
+elseif SENDTEXT:find('107') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'107') 
+elseif SENDTEXT:find('90') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'90') 
+elseif SENDTEXT:find('182') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'182') 
+elseif SENDTEXT:find('122') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'122') 
+elseif SENDTEXT:find('195') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'195') 
+elseif SENDTEXT:find('123') then
+redis:set(saske.."GAME:CHERE"..msg.chat_id_,'123') 
 end
+sendMsg(msg.chat_id_,msg.id_,SENDTEXT)     
+return false  
 end
-if MsgText[1] == 'بيع نقاطي' then
+
+if MsgText[1] == 'انكليزي' or MsgText[1] == 'الانكليزي' then   
+redis:set(saske.."eng:lsh"..msg.chat_id_,true) 
+Ke1 = [[
+✖️¦ 
+
+معنى كلمه " book "
+
+ ⚜️
+]]
+Ke2 = [[
+✖️¦ 
+
+معنى كلمه " cat "
+
+ ⚜️
+]]
+Ke3 =[[
+✖️¦ 
+
+معنى كلمه " door "
+
+ ⚜️
+]]
+Ke4 =[[
+✖️¦ 
+
+معنى كلمه " computer "
+
+ ⚜️
+]]
+Ke5 =[[
+✖️¦ 
+
+معنى كلمه " mouse "
+
+ ⚜️
+]]
+Ke6 =[[
+✖️¦ 
+
+معنى كلمه " closet "
+
+ ⚜️
+]]
+
+Ke7 =[[
+✖️¦ 
+
+معنى كلمه " internet "
+
+ ⚜️
+]]
+Ke8 =[[
+✖️¦ 
+
+معنى كلمه " table "
+
+ ⚜️
+]]
+Ke9 =[[
+✖️¦ 
+
+معنى كلمه " demon "
+
+ ⚜️
+]]
+Ke11 =[[
+✖️¦ 
+
+معنى كلمه " noise "
+
+ ⚜️
+]]
+Ke12 =[[
+✖️¦ 
+
+معنى كلمه " year "
+
+ ⚜️
+]]
+Ke13 =[[
+✖️¦ 
+
+معنى كلمه " home "
+
+ ⚜️
+]]
+Ke14 =[[
+✖️¦ 
+
+معنى كلمه " stomaech "
+
+ ⚜️
+]]
+Ke15 =[[
+✖️¦ 
+
+معنى كلمه " ankle "
+
+ ⚜️
+]]
+Ke17 =[[
+✖️¦ 
+
+معنى كلمه " gift "
+
+ ⚜️
+]]
+Ke18 =[[
+✖️¦ 
+
+معنى كلمه " butcher "
+
+ ⚜️
+]]
+Ke19 =[[
+✖️¦ 
+
+معنى كلمه " design "
+
+ ⚜️
+]]
+KENANm = {Ke17,Ke18,Ke19,Ke20,Ke1,Ke2,Ke3,Ke4,Ke5,Ke6,Ke7,Ke8,Ke9,Ke11,Ke12,Ke13,Ke14,Ke15}
+local SENDTEXT = KENANm[math.random(#KENANm)]
+if SENDTEXT:find('كتاب') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'كتاب') 
+elseif SENDTEXT:find('قطه') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'قطه') 
+elseif SENDTEXT:find('باب') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'باب') 
+elseif SENDTEXT:find('حاسبه') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'حاسبه') 
+elseif SENDTEXT:find('فاره') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'فاره') 
+elseif SENDTEXT:find('كنتور') then
+redis:set(saske.."GAME:CHER"..msg.chat_id_,'كنتور') 
+elseif SENDTEXT:find('انترنت') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'انترنت') 
+elseif SENDTEXT:find('منضده') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'منضده') 
+elseif SENDTEXT:find('شيطان') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'شيطان') 
+elseif SENDTEXT:find('ضوضاء') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'ضوضاء') 
+elseif SENDTEXT:find('سنه') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'سنه') 
+elseif SENDTEXT:find('بيت') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'بيت') 
+elseif SENDTEXT:find('معده') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'معده') 
+elseif SENDTEXT:find('كاحل') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'كاحل') 
+elseif SENDTEXT:find('خجول') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'خجول') 
+elseif SENDTEXT:find('هديه') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'هديه') 
+elseif SENDTEXT:find('جزار') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'جزار') 
+elseif SENDTEXT:find('تصميم') then
+redis:set(saske.."eng:ken"..msg.chat_id_,'تصميم') 
+end
+sendMsg(msg.chat_id_,msg.id_,SENDTEXT)     
+return false  
+end
+
+if MsgText[1] == 'بيع مجوهراتي' then
 if MsgText[2] == "0" then
-return '📛╿هناك خطأ عزيزي  \n🔖╽يجب ان يكون البيع ع الاقل 1 من النقاط . 'end
-local points = redis:get(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
+return '📛¦ هناك خطأ عزيزي  \n🔖¦ يجب ان يكون البيع ع الاقل 1 من المجوهرات . 'end
+local points = redis:get(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_)
 if tonumber(MsgText[2]) > tonumber(points) then
-return '📛│عذرا ليس لديك النقاط بهذا العدد لبيعهن' 
+return '📛| عذرا ليس لديك مجوهرات بهذا العدد لبيعهن' 
 end
 if points == "0" then
-return '📛╿للاسف ليس لديك النقاط \n🔖╽للحصول على النقاط العب احد الالعاب الموجوده في `قائمه الالعاب`'
+return '📛 ¦ للاسف ليس لديك مجوهرات \n🔖 ¦ للحصول على مجوهرات العب احد الالعاب الموجوده في `قائمه الالعاب`'
 else
 local Total_Point = MsgText[2] * 100
-redis:decrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,MsgText[2])  
-redis:incrby(lana..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_,Total_Point)  
-return "💰╿تم خصم {* "..MsgText[2].." *} من نقاطك\n📮│تم زياده {* "..Total_Point.."* } من الرسائل \n📑╽اصبحت رسائلك { *"..redis:get(lana..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_).."* } رساله\n🔖"
+redis:decrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,MsgText[2])  
+redis:incrby(saske..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_,Total_Point)  
+return "💰¦ تم خصم {* "..MsgText[2].." *} من مجوهراتك\n📮| تم زياده {* "..Total_Point.."* } من الرسائل \n📑| اصبحت رسائلك { *"..redis:get(saske..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_).."* } رساله\n🔖"
 end
 end
 if MsgText[1] == "الالعاب" or MsgText[1] == "اللعبه" or MsgText[1] == "اللعبة" then
 return [[ 
-⚛│•⊱ الالعاب لبوت []]..redis:get(lana..':NameBot:')..[[]  ، ! 🎖
-💱│•⊱ لتفعيل الالعاب او تعطيلها ارسل
-✔️│•⊱ تفعـيل ⊰• تعطيل •⊱ الالعاب
-ꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ
-🔝╿•⊱امثله ༜ لعبه امثله قديمه
-👁‍🗨│•⊱معاني ༜ لعبه معاني لسمايلات 
-🆕│•⊱اسئله ༜ لعبه اسئله عامه
-🌀│•⊱روليت ༜ لعبه الروليت الشهيره
-⁉️│•⊱حزوره ༜ لعبه الحزورات
-🔠│•⊱ترتيب ༜ لعبه ترتيب الكلمات
-🔰│•⊱العكس ༜ لعبه عكس الكلمه
-💤│•⊱تخمين ༜ لعبه تخمين الكلمه 
-🌀│•⊱الاسرع ༜ لعبه اسرع واحد 
-💠│•⊱محيبس ༜ لعبه محيبس الشهيره 📼╽•⊱المختلف ༜ لعبه اختلاف لسمايل
-ꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ
-💬 │•⊱ للمزيد من المعلومات ، ء ! 
-👨‍💻 │•⊱مـعـرف الـمـطـور  : ]]..SUDO_USER..[[
+🖥║⸨آو꯭آمر꯭ آݪا꯭ݪعآ꯭꯭꯭ب⸩
+ء➖➖➖➖➖➖™
+🖲¦  •⊱ {تفعيل الالعاب} ⊰•
+🖲¦  •⊱ {تعطيل الالعاب} ⊰•
+ء➖➖➖➖➖➖™
+📡║⸨꯭ آݪا꯭ݪعآ꯭꯭꯭ب⸩
+ء➖➖➖➖➖➖™
+🎮¦  •⊱ {الاسرع} ⊰• 
+🎮¦  •⊱ {معاني} ⊰• 
+🎮¦  •⊱ {ترتيب} ⊰• 
+🎮¦  •⊱ {روليت} ⊰• 
+🎮¦  •⊱ {اسئله} ⊰• 
+🎮¦  •⊱ {امثله} ⊰• 
+🎮¦  •⊱ {حزوره} ⊰• 
+🎮¦  •⊱ {المختلف} ⊰• 
+🎮¦  •⊱ {محيبس} ⊰• 
+🎮¦  •⊱ {تخمين} ⊰• 
+🎮¦  •⊱ {العكس} ⊰• 
+🎮¦  •⊱ {رياضيات} ⊰• 
+🎮¦  •⊱ {انكليزي} ⊰• 
+ء➖➖➖➖➖➖™
+⚖¦ ݪݪـﻤزيد م̷ـــن آݪمعـݪومـآت ݛآسݪنآ
+⚖¦ مطور آݪـبوت ↓
+⚖¦ م •⊱ ]]..SUDO_USER..[[ ⊰• √
 ]]
 end
 if MsgText[1] == 'روليت' then
-redis:del(lana..":Number_Add:"..msg.chat_id_..msg.sender_user_id_) 
-redis:del(lana..':List_Rolet:'..msg.chat_id_)  
-redis:setex(lana..":Start_Rolet:"..msg.chat_id_..msg.sender_user_id_,3600,true)  
-return '*🎪│* حسننا لنلعب , ارسل عدد اللاعبين للروليت .'
+redis:del(saske..":Number_Add:"..msg.chat_id_..msg.sender_user_id_) 
+redis:del(saske..':List_Rolet:'..msg.chat_id_)  
+redis:setex(saske..":Start_Rolet:"..msg.chat_id_..msg.sender_user_id_,3600,true)  
+return '*🛡║((روليت))\nء➖➖➖➖➖➖™\n⚔¦  •⊱{حسننا لنلعب}⊰•\n⚔¦  •⊱{ارسل عدد الاعبين للروليت}⊰•\n*'
 end
-if MsgText[1] == 'نعم' and redis:get(lana..":Witting_StartGame:"..msg.chat_id_..msg.sender_user_id_) then
-local list = redis:smembers(lana..':List_Rolet:'..msg.chat_id_) 
+if MsgText[1] == 'نعم' and redis:get(saske..":Witting_StartGame:"..msg.chat_id_..msg.sender_user_id_) then
+local list = redis:smembers(saske..':List_Rolet:'..msg.chat_id_) 
 if #list == 1 then 
-return "📛│لم يكتمل العدد الكلي للاعبين .!؟" 
+return "📛| لم يكتمل العدد الكلي للاعبين .!؟" 
 elseif #list == 0 then 
-return "📛│عذرا لم تقوم باضافه اي لاعب .؟!" 
+return "📛| عذرا لم تقوم باضافه اي لاعب .؟!" 
 end 
 local UserName = list[math.random(#list)]
 GetUserName(UserName,function(arg,data)
-redis:incrby(lana..':User_Points:'..msg.chat_id_..data.id_,5)
+redis:incrby(saske..':User_Points:'..msg.chat_id_..data.id_,2)
 end,nil)
-redis:del(lana..':List_Rolet:'..msg.chat_id_) 
-redis:del(lana..":Witting_StartGame:"..msg.chat_id_..msg.sender_user_id_)
-return '📑╿تم اختيار الشخص الاتي\n🌟│صاحب الحظ {['..UserName..']}\n💰╽ربحت معنا 5 نقاط' 
+redis:del(saske..':List_Rolet:'..msg.chat_id_) 
+redis:del(saske..":Witting_StartGame:"..msg.chat_id_..msg.sender_user_id_)
+return '👁‍🗨║((روليت))\nء➖➖➖➖➖➖™\n♣️¦  •⊱ {تم اختيار الشخص الاتي} ⊰•\n♣️¦  •⊱ {صاحب الحظ ( ['..UserName..'] ) } ⊰•\n♣️¦  •⊱ {ربحت معنا²مجوهرات} ⊰•\n' 
 end
 if MsgText[1] == 'الاعبين' then
-local list = redis:smembers(lana..':List_Rolet:'..msg.chat_id_) 
+local list = redis:smembers(saske..':List_Rolet:'..msg.chat_id_) 
 local Text = '\n*ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ*\n' 
 if #list == 0 then 
-return '*📮│* لا يوجد لاعبين هنا ' 
+return '*📮¦* لا يوجد لاعبين هنا ' 
 end 
 for k, v in pairs(list) do 
 Text = Text..k.."•  » [" ..v.."] »\n"  
@@ -850,199 +1112,238 @@ return Text
 end
 if MsgText[1] == 'قائمه الالعاب' then
 sendMsg(msg.chat_id_,msg.id_,[[
-🤡│•⊱ الالعاب لبوت []]..redis:get(lana..':NameBot:')..[[]  ، ! 🎖
-⚙️│•⊱ لتفعيل الالعاب او تعطيلها ارسل
-🎖│•⊱ تفعـيل ⊰• تعطيل •⊱ الالعاب
-ꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ
-📜╿•⊱امثله ༜ لعبه امثله قديمه
-🎰│•⊱معاني ༜ لعبه معاني لسمايلات 
-📋│•⊱اسئله ༜ لعبه اسئله عامه
-🎭│•⊱روليت ༜ لعبه الروليت الشهيره
-🤔│•⊱حزوره ༜ لعبه الحزورات
-🎨│•⊱ترتيب ༜ لعبه ترتيب الكلمات
-♻️│•⊱العكس ༜ لعبه عكس الكلمه
-🎁│•⊱تخمين ༜ لعبه تخمين الكلمه 
-🤹‍♂│•⊱الاسرع ༜ لعبه اسرع واحد 
-👊│•⊱محيبس ༜ لعبه محيبس الشهيره
-🚦╽•⊱المختلف ༜ لعبه اختلاف لسمايل
-ꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ
-💬 │•⊱ للمزيد من المعلومات ، ء ! 
-👨‍💻 │•⊱مـعـرف الـمـطـور  : ]]..SUDO_USER..[[
-]])
+🖥║⸨آو꯭آمر꯭ آݪا꯭ݪعآ꯭꯭꯭ب⸩
+ء➖➖➖➖➖➖™
+🖲¦  •⊱ {تفعيل الالعاب} ⊰•
+🖲¦  •⊱ {تعطيل الالعاب} ⊰•
+ء➖➖➖➖➖➖™
+📡║⸨꯭ آݪا꯭ݪعآ꯭꯭꯭ب⸩
+ء➖➖➖➖➖➖™
+🎮¦  •⊱ {الاسرع} ⊰• 
+🎮¦  •⊱ {معاني} ⊰• 
+🎮¦  •⊱ {ترتيب} ⊰• 
+🎮¦  •⊱ {روليت} ⊰• 
+🎮¦  •⊱ {اسئله} ⊰• 
+🎮¦  •⊱ {امثله} ⊰• 
+🎮¦  •⊱ {حزوره} ⊰• 
+🎮¦  •⊱ {المختلف} ⊰• 
+🎮¦  •⊱ {محيبس} ⊰• 
+🎮¦  •⊱ {تخمين} ⊰• 
+🎮¦  •⊱ {العكس} ⊰• 
+🎮¦  •⊱ {رياضيات} ⊰• 
+🎮¦  •⊱ {انكليزي} ⊰• 
+ء➖➖➖➖➖➖™
+⚖¦ ݪݪـﻤزيد م̷ـــن آݪمعـݪومـآت ݛآسݪنآ
+⚖¦ مطور آݪـبوت ↓
+⚖¦ م •⊱ ]]..SUDO_USER..[[ ⊰• √]])
 end
 end
 end
 end
 local function procces(msg)
-if msg.text and not redis:get(lana..'lock_geams'..msg.chat_id_) then
-if msg.text == redis:get(lana..':Set_alii:'..msg.chat_id_) then -- // المختلف
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana..':Set_alii:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*  🎁  احسنت اجابتك صحيحه   \n*   \n')
-end
+if msg.text and not redis:get(saske..'lock_geams'..msg.chat_id_) then
+if msg.text == redis:get(saske..':Set_Smile:'..msg.chat_id_) then --//  الاسرع
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske..':Set_Smile:'..msg.chat_id_)
+return sendMsg(msg.chat_id_,msg.id_,'*\n🎮║((الاسرع))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')end
+if msg.text == redis:get(saske..':Set_alii:'..msg.chat_id_) then -- // المختلف
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske..':Set_alii:'..msg.chat_id_)
+return sendMsg(msg.chat_id_,msg.id_,'*\n🎮║((المختلف))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')end
 
-if msg.text == redis:get(lana..':Set_Amthlh:'..msg.chat_id_) then -- // امثله
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana..':Set_Amthlh:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*  🎁  احسنت اجابتك صحيحه   \n*   \n')
-end
+if msg.text == redis:get(saske..':Set_Amthlh:'..msg.chat_id_) then -- // امثله
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske..':Set_Amthlh:'..msg.chat_id_)
+return sendMsg(msg.chat_id_,msg.id_,'*\n🎮║((امثله))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')end
 
-if msg.text == redis:get(lana..':Set_Hzorh:'..msg.chat_id_) then -- // حزوره
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana..':Set_Hzorh:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*  🎁  احسنت اجابتك صحيحه   \n*   \n')
-end
+if msg.text == redis:get(saske..':Set_Hzorh:'..msg.chat_id_) then -- // حزوره
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske..':Set_Hzorh:'..msg.chat_id_)
+return sendMsg(msg.chat_id_,msg.id_,'*\n🎮║((حزوره))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')end
 
-
-if msg.text == redis:get(lana..':Set_Smile:'..msg.chat_id_) then --//  الاسرع
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana..':Set_Smile:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*  🎊   احسنت اجابتك صحيحه \n*   \n')
-end 
-if msg.text == redis:get(lana..':Set_alii:'..msg.chat_id_) then -- // المختلف
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana..':Set_alii:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*  🎁  احسنت اجابتك صحيحه   \n*   \n')
-end 
-if msg.text == redis:get(lana..':Set_Hzorh:'..msg.chat_id_) then -- // حزوره
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana..':Set_Hzorh:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*  🎁  احسنت اجابتك صحيحه   \n*   \n')
-end 
-if msg.text == redis:get(lana..':Set_Arg:'..msg.chat_id_) then -- // الترتيب
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana..':Set_Arg:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*  🎁  احسنت اجابتك صحيحه   \n*   \n')
-end 
-if msg.text == redis:get(lana..':Set_Name_Meant:'..msg.chat_id_) then --// المعاني
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana..':Set_Name_Meant:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*   🎉   احسنت اجابتك صحيحه \n*   \n')
-end 
-if msg.text:match("^(%d+)$") and redis:get(lana..":Start_Rolet:"..msg.chat_id_..msg.sender_user_id_) then  --// استقبال اللعبه الدمبله
-if msg.text == "1" then
-Text = "*📮│* لا استطيع بدء اللعبه بلاعب واحد فقط\n"
-else
-redis:set(lana..":Number_Add:"..msg.chat_id_..msg.sender_user_id_,msg.text)  
-Text = '💬╿تم بدء تسجيل اللسته \n💱│يرجى ارسال المعرفات \n🎊│الفائز يحصل على (5) مجوهره\n🎯╽عدد الاعبين المطلوبه { *'..msg.text..'* } لاعب \n 🏹'
-end
-redis:del(lana..":Start_Rolet:"..msg.chat_id_..msg.sender_user_id_)  
-return sendMsg(msg.chat_id_,msg.id_,Text)    
-end
-if msg.text:match('^(@[%a%d_]+)$') and redis:get(lana..":Number_Add:"..msg.chat_id_..msg.sender_user_id_) then    --// استقبال الاسماء
-if redis:sismember(lana..':List_Rolet:'..msg.chat_id_,msg.text) then
-return sendMsg(msg.chat_id_,msg.id_,'*📮│* المعرف {['..msg.text..']} موجود اساسا' )
-end
-redis:sadd(lana..':List_Rolet:'..msg.chat_id_,msg.text)
-local CountAdd = redis:get(lana..":Number_Add:"..msg.chat_id_..msg.sender_user_id_)
-local CountAll = redis:scard(lana..':List_Rolet:'..msg.chat_id_)
-local CountUser = CountAdd - CountAll
-if tonumber(CountAll) == tonumber(CountAdd) then 
-redis:del(lana..":Number_Add:"..msg.chat_id_..msg.sender_user_id_) 
-redis:setex(lana..":Witting_StartGame:"..msg.chat_id_..msg.sender_user_id_,1400,true)  
-return sendMsg(msg.chat_id_,msg.id_,"*📮╿*تم ادخال المعرف { ["..msg.text.."] } \n🔖*│*وتم اكتمال العدد الكلي \n📛╽هل انت مستعد ؟ اجب بـ {* نعم *}")
-end 
-return sendMsg(msg.chat_id_,msg.id_,"*📮╿* تم ادخال المعرف { ["..msg.text.."] } \n🔖│تبقى { *"..CountUser.."* } لاعبين ليكتمل العدد\n📑╽ارسل المعرف التالي ")
-end
-end 
-if redis:get(lana.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_) then 
-if msg.text:match("^(%d+)$") then
-if tonumber(msg.text:match("^(%d+)$")) > 99999999990 then
-sendMsg(msg.chat_id_,msg.id_,"*📬│لا تستطيع اضافة اكثر من99999999990 رساله\n*")
-redis:del(lana.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_)  
-return false  end 
-local GET_IDUSER = redis:get(lana..'SET:ID:USER'..msg.chat_id_)  
-sendMsg(msg.chat_id_,msg.id_,"\n📬*│روح خالي 😉 تم اضافة له { "..msg.text.." }* رساله")
-redis:incrby(lana..'msgs:'..GET_IDUSER..':'..msg.chat_id_,msg.text)  
-end
-redis:del(lana.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_)  
-end
-if redis:get(lana.."SETEX:NUM"..msg.chat_id_..""..msg.sender_user_id_) then 
-if msg.text:match("^(%d+)$") then
-if tonumber(msg.text:match("^(%d+)$")) > 99999999990 then
-sendMsg(msg.chat_id_,msg.id_,"*📬│لا تستطيع اضافة اكثر من 99999999990 نقطه\n*")   
-redis:del(lana.."SETEX:NUM"..msg.chat_id_..""..msg.sender_user_id_)  
-return false  end 
-local GET_IDUSER = redis:get(lana..'SET:ID:USER:NUM'..msg.chat_id_)  
-sendMsg(msg.chat_id_,msg.id_,"\n📬*│طكو طكو عمي 😻 تم اضافة له { "..msg.text.." }* نقطه")
-redis:incrby(lana..':User_Points:'..msg.chat_id_..GET_IDUSER,msg.text)  
-end
-redis:del(lana.."SETEX:NUM"..msg.chat_id_..""..msg.sender_user_id_)  
-end
-if redis:get(lana.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then  
-if msg.text:match("^(%d+)$") then
-local NUM = msg.text:match("^(%d+)$")
-if tonumber(NUM) > 6 then
-sendMsg(msg.chat_id_,msg.id_,"*📬│عذرا لا يوجد سواء { 6 } اختيارات فقط ارسل اختيارك مره اخره*\n")   
-return false  end 
-local GETNUM = redis:get(lana.."GAMES"..msg.chat_id_)
-if tonumber(NUM) == tonumber(GETNUM) then
-redis:del(lana.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
-sendMsg(msg.chat_id_,msg.id_,'*📮╿مبروك فزت وطلعت المحيبس بل ايد رقم { '..NUM..' }\n🎊╽لقد حصلت على { 3 }من نقاط يمكنك استبدالهن برسائل *')   
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,3)  
-elseif tonumber(NUM) ~= tonumber(GETNUM) then
-redis:del(lana.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
-sendMsg(msg.chat_id_,msg.id_,'\n*📮╿للاسف لقد خسرت \n📬│المحيبس بل ايد رقم { '..GETNUM..' }\n💥╽حاول مره اخرى للعثور على المحيبس *')   
-end
-end
-end
-if (msg.text == redis:get(lana.."GAME:CHER"..msg.chat_id_)) and redis:get(lana.."GAME:S"..msg.chat_id_) then  
-sendMsg(msg.chat_id_,msg.id_,'📮│اجابتك صحيحه ذكي وربي 😙')     
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana.."GAME:S"..msg.chat_id_)
-redis:del(lana.."GAME:CHER"..msg.chat_id_)
+if msg.text == redis:get(saske..':Set_Arg:'..msg.chat_id_) then -- // الترتيب
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske..':Set_Arg:'..msg.chat_id_)
+return sendMsg(msg.chat_id_,msg.id_,'*\n🎮║((ترتيب))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')end
+if msg.text == redis:get(saske..':Set_Name_Meant:'..msg.chat_id_) then --// المعاني
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske..':Set_Name_Meant:'..msg.chat_id_)
+return sendMsg(msg.chat_id_,msg.id_,'*\n🎮║((معاني))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')end
+if (msg.text == redis:get(saske.."GAME:CHER"..msg.chat_id_)) and redis:get(saske.."GAME:S"..msg.chat_id_) then  
+sendMsg(msg.chat_id_,msg.id_,'\n🎮║((اسئله))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهىات } ⊰•')     
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske.."GAME:S"..msg.chat_id_)
+redis:del(saske.."GAME:CHER"..msg.chat_id_)
 elseif msg.text == 'الفيل' or msg.text == 'الثور' or msg.text == 'الحصان' or msg.text == '7' or msg.text == '9' or msg.text == '8' or msg.text == 'لوين' or msg.text == 'موسكو' or msg.text == 'مانكو' or msg.text == '20' or msg.text == '30' or msg.text == '28' or msg.text == 'ترامب' or msg.text == 'اوباما' or msg.text == 'كيم جونغ' or msg.text == '50' or msg.text == '70' or msg.text == '40' or msg.text == '7' or msg.text == '3' or msg.text == '10' or msg.text == '4' or msg.text == 'الاذن' or msg.text == 'الثلاجه' or msg.text == 'الغرفه' or msg.text == '15' or msg.text == '17' or msg.text == '25' or msg.text == 'الفرات' or msg.text == 'نهر الكونغو' or msg.text == 'المسيبي' or msg.text == 'بيا بايج' or msg.text == 'لاري بيج' or msg.text == 'بيا مارك زوكيربرج' or msg.text == 'الفيل' or msg.text == 'النمر' or msg.text == 'الفهد' or msg.text == 'بانكول' or msg.text == 'نيو دلهي' or msg.text == 'بيكن' or msg.text == 'الهاتف' or msg.text == 'التلفاز' or msg.text == 'المذياع' or msg.text == 'لفرسول' or msg.text == 'تركيا' or msg.text == 'بغداد' or msg.text == 'النحاس' or msg.text == 'الحديد' or msg.text == 'الفضه' or msg.text == 'امريكا الشماليه' or msg.text == 'امريكا الجنوبيه' or msg.text == 'افريقيا' or msg.text == 'القرش' or msg.text == 'الثعلب' or msg.text == 'الكلب' or msg.text == 'للجرو' or msg.text == 'العجل' or msg.text == 'الحمار' or msg.text == '3' or msg.text == '5' or msg.text == '6' or msg.text == 'اوربا' or msg.text == 'افريقيا' or msg.text == 'امريكا الجنوبيه' or msg.text == 'افريقيا' or msg.text == 'امريكا الشماليه' or msg.text == 'اوربا' or msg.text == 'الصاروخ' or msg.text == 'المسدس' or msg.text == 'الطائرات' or msg.text == 'سيدات' or msg.text == 'قوانص' or msg.text == 'عوانس' or msg.text == 'المكارم' or msg.text == 'المبائم' or msg.text == 'المعازم' or msg.text == 'حرف الغاء' or msg.text == 'حرف الواو' or msg.text == 'حرف النون' or msg.text == 'نحاس' or msg.text == 'الماس' or msg.text == 'حديد' or msg.text == 'العمر' or msg.text == 'ساعه' or msg.text == 'الحذاء' or msg.text == 'بئر' or msg.text == 'نهر' or msg.text == 'شلال' or msg.text == 'ادم' or msg.text == 'نوح' or msg.text == 'عيسئ' or msg.text == 'الاضافر' or msg.text == 'الاسنان' or msg.text == 'الدموع' or msg.text == 'الاخلاق' or msg.text == 'الضل' or msg.text == 'حرف النون'  then
-if redis:get(lana.."GAME:S"..msg.chat_id_) then  
+if redis:get(saske.."GAME:S"..msg.chat_id_) then  
 local list = {'10' , 'براسي' , 'النمل' , '32' , 'بوتين' , '30' , '11' , 'الفم' , '14' , 'النيل' , 'ستيف جوبر' , 'خديجه' , 'الاسد' , 'طوكيو' , 'الانسان' , 'لندن' , 'الزئبق' , 'اورباالدولفين' , 'المهر' , '4' , 'اسيا' , 'اسيا' , 'المنجنيق' , 'انسات' , 'العزائم' , 'حرف الام' , 'ذهب' , 'الاسم' , 'سحاب' , 'ابراهيم' , 'الشعر' , 'حرف الواو'}
 for k, v in pairs(list) do 
 if msg.text ~= v then
-sendMsg(msg.chat_id_,msg.id_,'📮│اجابتك غلطططط ')     
-redis:del(lana.."GAME:S"..msg.chat_id_)
-redis:del(lana.."GAME:CHER"..msg.chat_id_)
 return false  
 end
 end
 end
 end
-if (msg.text == redis:get(lana.."GAME:CHER"..msg.chat_id_)) and redis:get(lana.."GAME:S"..msg.chat_id_) then  
-sendMsg(msg.chat_id_,msg.id_,'📮│اجابتك صحيحه ذكي وربي 😙')     
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana.."GAME:S"..msg.chat_id_)
-redis:del(lana.."GAME:CHER"..msg.chat_id_)
-elseif msg.text == 'فهمت' or msg.text == 'مو جبان' or msg.text == 'عدل' or msg.text == 'نشط' or msg.text == 'مو زين' or msg.text == 'مو عطشان' or msg.text == 'حاره' or msg.text == 'مو خايف' or msg.text == 'خلف' or msg.text == 'وفي' or msg.text == 'القزم' or msg.text == 'لين' or msg.text == 'خشن' or msg.text == 'عاقل' or msg.text == 'ذكي' or msg.text == 'مو ظلمه' or msg.text == 'مو مسموح' or msg.text == 'اسمعك' or msg.text == 'روح' then
-if redis:get(lana.."GAME:S"..msg.chat_id_) then  
+
+if msg.text:match("^(%d+)$") and redis:get(saske..":Start_Rolet:"..msg.chat_id_..msg.sender_user_id_) then  --// استقبال اللعبه الدمبله
+if msg.text == "1" then
+Text = "*📮¦* لا استطيع بدء اللعبه بلاعب واحد فقط\n"
+else
+redis:set(saske..":Number_Add:"..msg.chat_id_..msg.sender_user_id_,msg.text)  
+Text = '👁‍🗨║((روليت))\nء➖➖➖➖➖➖™\n♣️¦  •⊱{تم بدء تسجيل السته}⊰•\n♣️¦  •⊱{يرجى ارسال المعرفات}⊰•\n♣️¦  •⊱{الفائز يحصل على²مجوهرات}⊰•\n♣️¦  •⊱{عدد الاعبين المطلوب ~*'..msg.text..'*~}⊰•\n'
+end
+redis:del(saske..":Start_Rolet:"..msg.chat_id_..msg.sender_user_id_)  
+return sendMsg(msg.chat_id_,msg.id_,Text)    
+end
+if msg.text:match('^(@[%a%d_]+)$') and redis:get(saske..":Number_Add:"..msg.chat_id_..msg.sender_user_id_) then    --// استقبال الاسماء
+if redis:sismember(saske..':List_Rolet:'..msg.chat_id_,msg.text) then
+return sendMsg(msg.chat_id_,msg.id_,'*📮¦* المعرف {['..msg.text..']} موجود اساسا' )
+end
+redis:sadd(saske..':List_Rolet:'..msg.chat_id_,msg.text)
+local CountAdd = redis:get(saske..":Number_Add:"..msg.chat_id_..msg.sender_user_id_)
+local CountAll = redis:scard(saske..':List_Rolet:'..msg.chat_id_)
+local CountUser = CountAdd - CountAll
+if tonumber(CountAll) == tonumber(CountAdd) then 
+redis:del(saske..":Number_Add:"..msg.chat_id_..msg.sender_user_id_) 
+redis:setex(saske..":Witting_StartGame:"..msg.chat_id_..msg.sender_user_id_,1400,true)  
+return sendMsg(msg.chat_id_,msg.id_,"👁‍🗨║((روليت))\nء➖➖➖➖➖➖™\n♣️¦  •⊱{تم ادخال المعرف}⊰•\n♣️¦  •⊱{م ["..msg.text.."]}⊰•\n♣️¦  •⊱{تم اكمال العدد الكلي}⊰•\n♣️¦  •⊱{هل انت مستعد}⊰•\n♣️¦  •⊱{ارسل (نعم) للبدء}⊰•\n")
+end 
+return sendMsg(msg.chat_id_,msg.id_,"👁‍🗨║((روليت))\nء➖➖➖➖➖➖™\n♣️¦  •⊱{تم ادخال المعرف}⊰•\n♣️¦  •⊱{م ["..msg.text.."] }⊰•\n♣️¦  •⊱{تبقى *"..CountUser.."* لاعبين ليكتمل العدد}⊰•\n♣️¦  •⊱{ارسل المعرف التالي}⊰•\n")
+end
+end 
+if redis:get(saske.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_) then 
+if msg.text:match("^(%d+)$") then
+if tonumber(msg.text:match("^(%d+)$")) > 99999999 then
+sendMsg(msg.chat_id_,msg.id_,"*📬¦ لا تستطيع اضافة اكثر من 99999999 رساله\n*")   
+redis:del(saske.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_)  
+return false  end 
+local GET_IDUSER = redis:get(saske..'SET:ID:USER'..msg.chat_id_)  
+sendMsg(msg.chat_id_,msg.id_,"\n📬*¦ روح خالي 😉 تم اضافة له { "..msg.text.." }* رساله")
+redis:incrby(saske..'msgs:'..GET_IDUSER..':'..msg.chat_id_,msg.text)  
+end
+redis:del(saske.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_)  
+end
+
+if redis:get(saske.."SETEX:NUM"..msg.chat_id_..""..msg.sender_user_id_) then 
+if msg.text:match("^(%d+)$") then
+if tonumber(msg.text:match("^(%d+)$")) > 99999999 then
+sendMsg(msg.chat_id_,msg.id_,"*📬¦ لا تستطيع اضافة اكثر من 99999999 مجوهرات\n*")   
+redis:del(saske.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_)  
+return false  end 
+local GET_IDUSER = redis:get(saske..'SET:ID:USER:NUM'..msg.chat_id_)  
+sendMsg(msg.chat_id_,msg.id_,"\n📬*¦ طكو طكو عمي 😻 تم اضافة له { "..msg.text.." }* مجوهرات")
+redis:incrby(saske..':User_Points:'..msg.chat_id_..GET_IDUSER,msg.text)  
+end
+redis:del(saske.."SETEX:MSG"..msg.chat_id_..""..msg.sender_user_id_)  
+end
+
+if redis:get(saske.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then  
+if msg.text:match("^(%d+)$") then
+local NUM = msg.text:match("^(%d+)$")
+if tonumber(NUM) > 6 then
+sendMsg(msg.chat_id_,msg.id_,"*📬¦ عذرا لا يوجد سواء { 6 } اختيارات فقط ارسل اختيارك مره اخره*\n")   
+return false  end 
+local GETNUM = redis:get(saske.."GAMES"..msg.chat_id_)
+if tonumber(NUM) == tonumber(GETNUM) then
+redis:del(saske.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
+sendMsg(msg.chat_id_,msg.id_,'*🎮║((المحيبس))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{العب وخوش تلعب}⊰•\n🖲¦  •⊱{حصلت على 3 مجوهرات }⊰•\n*')   
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,3)  
+elseif tonumber(NUM) ~= tonumber(GETNUM) then
+redis:del(saske.."SET:GAME" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
+sendMsg(msg.chat_id_,msg.id_,'*🎮║((المحيبس))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{ترجع بيد '..Bot_Name..' 😹🥀}⊰•\n🖲¦  •⊱{المحبس بيد رقم ~'..GETNUM..'~}⊰•\n*')   
+end
+end
+end
+if msg.text then  
+tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_}, function(arg,data) 
+if redis:get(saske.."chencher"..msg.sender_user_id_) then 
+if redis:get(saske.."chencher"..msg.sender_user_id_) ~= data.first_name_ then 
+tahan = '['..(redis:get(saske.."chencher"..msg.sender_user_id_) or '')..']'
+taham = '['..data.first_name_..']'
+sendMsg(msg.chat_id_,msg.id_,taha[math.random(#taha)])
+end  
+end
+redis:set(saske.."chencher"..msg.sender_user_id_, data.first_name_) 
+end,nil) 
+end
+
+
+if redis:get(saske.."SET:t" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then  
+if msg.text:match("^(%d+)$") then
+local NUM = msg.text:match("^(%d+)$")
+if tonumber(NUM) > 6 then
+sendMsg(msg.chat_id_,msg.id_,"*📬¦ عذرا لا يوجد سواء { 10 } اختيارات فقط ارسل اختيارك مره اخره*\n")   
+return false  end 
+local GETNUM = redis:get(saske.."GAMES"..msg.chat_id_)
+if tonumber(NUM) == tonumber(GETNUM) then
+redis:del(saske.."SET:t" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
+sendMsg(msg.chat_id_,msg.id_,'*🎮║((تخمين))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{العب وخوش تلعب}⊰•\n🖲¦  •⊱{حصلت على 3 مجوهرات }⊰•\n*')   
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,3)  
+elseif tonumber(NUM) ~= tonumber(GETNUM) then
+redis:del(saske.."SET:t" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
+sendMsg(msg.chat_id_,msg.id_,'*🎮║((تخمين))\nء➖➖➖➖➖➖™\n🖲¦  •⊱{اجابه خاطئه}⊰•\n🖲¦  •⊱{الاجابه هيه ~'..GETNUM..'~}⊰•\n*')   
+end
+end
+end
+
+if (msg.text == redis:get(saske.."GAME:CHER"..msg.chat_id_)) and redis:get(saske.."GAME:S"..msg.chat_id_) then  
+sendMsg(msg.chat_id_,msg.id_,'')     
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,0)  
+redis:del(saske.."GAME:S"..msg.chat_id_)
+redis:del(saske.."GAME:CHER"..msg.chat_id_)
+
+elseif msg.text == 'فهمت' or msg.text == 'مو جبان' or msg.text == 'عدل' or msg.text == 'نشط' or msg.text == 'مو زين' or msg.text == 'مو عطشان' or msg.text == 'حاره' or msg.text == 'مو خايف' or msg.text == 'خلف' or msg.text == 'وفي' or msg.text == 'القزم' or msg.text == 'لين' or msg.text == 'خشن' or msg.text == 'عاقل' or msg.text == 'ذكي' or msg.text == 'مو ظلمه' or msg.text == 'مو مسموح' or msg.text == 'روح' then
+if redis:get(saske.."GAME:S"..msg.chat_id_) then  
 local list = {'فهمت' , 'مو جبان' , ' مو عطشان' , 'عدل' , 'نشط' , 'مو زين' , ' خاره ' , 'خلف' , 'مو خايف' , 'لين' , 'القزم' , 'وفي' , 'عاقل' , 'خشن' , 'ذكي' , 'اسمعك' , 'مو مسموح' , 'مو ظلمه'}
 for k, v in pairs(list) do 
 if msg.text ~= v then
-sendMsg(msg.chat_id_,msg.id_,'📮│اجابتك صحيحه ذكي وربي 😙')     
-redis:incrby(lana..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lana.."GAME:S"..msg.chat_id_)
-redis:del(lana.."GAME:CHER"..msg.chat_id_)
-return false  
+sendMsg(msg.chat_id_,msg.id_,'📮¦*\n🎮║((العكس))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')     
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske.."GAME:S"..msg.chat_id_)
+redis:del(saske.."GAME:CHER"..msg.chat_id_)
+return true   
 end
 end
 end
 end
-if redis:get(lana.."GAME:TKMEN" .. msg.chat_id_ .. "" .. msg.sender_user_id_) then  
-if msg.text:match("^(%d+)$") then
-local NUM = msg.text:match("^(%d+)$")
-if tonumber(NUM) > 20 then
-sendMsg(msg.chat_id_,msg.id_,"*📬│عذرآ لا يمكنك تخمين عدد اكبر من ال { 20 } خمن رقم ما بين ال{ 1 و 20 } *\n")
-return false  end 
-local GETNUM = redis:get(lana.."GAMES:NUM"..msg.chat_id_)
-if tonumber(NUM) == tonumber(GETNUM) then
-redis:del(lana..'SADD:NUM'..msg.chat_id_..msg.sender_user_id_)
-redis:del(lana.."GAME:TKMEN" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
-redis:incrby(lana..':User_Points:'..msg.chat_id_..data.id_,5)
-sendMsg(msg.chat_id_,msg.id_,'*🔖╿مبروك فزت ويانه وخمنت الرقم الصحيح\n🚸╽تم اضافة { 5 } من النقاط *\n')
-elseif tonumber(NUM) ~= tonumber(GETNUM) then
-redis:incrby(lana..'SADD:NUM'..msg.chat_id_..msg.sender_user_id_,1)
-if tonumber(redis:get(lana..'SADD:NUM'..msg.chat_id_..msg.sender_user_id_)) >= 3 then
-redis:del(lana..'SADD:NUM'..msg.chat_id_..msg.sender_user_id_)
-redis:del(lana.."GAME:TKMEN" .. msg.chat_id_ .. "" .. msg.sender_user_id_)   
-sendMsg(msg.chat_id_,msg.id_,'\n*📮╿اوبس لقد خسرت في اللعبه \n📬│حظآ اوفر في المره القادمه \n🚫╽كان الرقم الذي تم تخمينه { '..GETNUM..' }\n*')
-else
-sendMsg(msg.chat_id_,msg.id_,'\n*📛╿اوبس تخمينك غلط \n📌╽ارسل رقم تخمنه مره اخره \n*')
+
+if (msg.text == redis:get(saske.."GAME:CHERE"..msg.chat_id_)) and redis:get(saske.."GAME:SE"..msg.chat_id_) then  
+sendMsg(msg.chat_id_,msg.id_,'')     
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,0)  
+redis:del(saske.."GAME:SE"..msg.chat_id_)
+redis:del(saske.."GAME:CHERE"..msg.chat_id_)
+
+elseif msg.text == '68' or msg.text == '114' or msg.text == '164' or msg.text == '194' or msg.text == '28' or msg.text == '62' or msg.text == '109' or msg.text == '88' or msg.text == '192' or msg.text == '115' or msg.text == '124' or msg.text == '102' or msg.text == '107' or msg.text == '90' or msg.text == '182' or msg.text == '122' or msg.text == '195' then
+if redis:get(saske.."GAME:SE"..msg.chat_id_) then  
+local list = {'68' , '114' , ' 62' , '164' , '194' , '28' , '109' , '192' , '88' , '102' , '124' , '115' , '90' , '107' , '182' , '123' , '195' , '122'}
+for k, v in pairs(list) do 
+if msg.text ~= v then
+sendMsg(msg.chat_id_,msg.id_,'📮¦*\n🎮║((رياضيات))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')     
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske.."GAME:SE"..msg.chat_id_)
+redis:del(saske.."GAME:CHERE"..msg.chat_id_)
+return true   
+end
+end
+end
+end
+
+if (msg.text == redis:get(saske.."eng:ken"..msg.chat_id_)) and redis:get(saske.."eng:lsh"..msg.chat_id_) then  
+sendMsg(msg.chat_id_,msg.id_,'')     
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,0)  
+redis:del(saske.."eng:lsh"..msg.chat_id_)
+redis:del(saske.."eng:ken"..msg.chat_id_)
+
+elseif msg.text == 'كتاب' or msg.text == 'قطه' or msg.text == 'باب' or msg.text == 'حاسبه' or msg.text == 'فاره' or msg.text == 'كنتور' or msg.text == 'انترنت' or msg.text == 'منضده' or msg.text == 'شيطان' or msg.text == 'ضوضاء' or msg.text == 'سنه' or msg.text == 'بيت' or msg.text == 'معده' or msg.text == 'كاحل' or msg.text == 'خجول' or msg.text == 'هديه' or msg.text == 'جزار' or msg.text == 'تصميم' then
+if redis:get(saske.."eng:lsh"..msg.chat_id_) then  
+local list = {'كتاب' , 'قطه' , 'كنتور' , 'باب' , 'حاسبه' , 'فاره' , 'انترنت' , 'شيطان' , 'منضده' , 'بيت' , 'سنه' , 'ضوضاء' , 'كاحل' , 'معده' , 'خجول' , 'تصميم' , 'جزار' , 'هديه'}
+for k, v in pairs(list) do 
+if msg.text ~= v then
+sendMsg(msg.chat_id_,msg.id_,'📮¦*\n🎮║((انكليزي))\nء➖➖➖➖➖➖™\n🖲¦  •⊱ {اجابه صحيحه} ⊰•\n🖲¦  •⊱ { حصلت على¹مجوهرات } ⊰•*')     
+redis:incrby(saske..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
+redis:del(saske.."eng:lsh"..msg.chat_id_)
+redis:del(saske.."eng:ken"..msg.chat_id_)
+return true   
 end
 end
 end
@@ -1050,9 +1351,21 @@ end
 
 if msg.text then  
 tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_}, function(arg,data) 
-if redis:get(lana.."chencher"..msg.sender_user_id_) then 
-if redis:get(lana.."chencher"..msg.sender_user_id_) ~= data.first_name_ then 
-tahan = '['..(redis:get(lana.."chencher"..msg.sender_user_id_) or '')..']'
+if redis:get(saske.."chencher"..msg.sender_user_id_) then 
+if redis:get(saske.."chencher"..msg.sender_user_id_) ~= data.first_name_ then 
+tahan = '['..(redis:get(saske.."chencher"..msg.sender_user_id_) or '')..']'
+taham = '['..data.first_name_..']'
+sendMsg(msg.chat_id_,msg.id_,taha[math.random(#taha)])
+end  
+end
+redis:set(saske.."chencher"..msg.sender_user_id_, data.first_name_) 
+end,nil) 
+end
+if msg.text then  
+tdcli_function ({ID = "GetUser",user_id_ = msg.sender_user_id_}, function(arg,data) 
+if redis:get(saske.."chencher"..msg.sender_user_id_) then 
+if redis:get(saske.."chencher"..msg.sender_user_id_) ~= data.first_name_ then 
+tahan = '['..(redis:get(saske.."chencher"..msg.sender_user_id_) or '')..']'
 taham = '['..data.first_name_..']'
 local taha ={ 
 '\n شكو غيرت اسمك  يا حلو 😹🌚',
@@ -1061,50 +1374,51 @@ local taha ={
 '\n شكو غيرت اسمك شنو قطيت وحده جديده 😹😹🌚',
 '\n شو غيرت اسمك شنو تعاركت ويه الحب ؟😹🌞',
 '\n ها ولك مو جان  اسمك   '..tahan..'  شكو غيرته ',
+'\n لك تعال تعال مو جان اسمك'..tahan..' لو اني غلطان',
+'\n هذا جان اسمه '..tahan..' خمطو بعد ميريده 😹🌞',
 '\n شكو غيرت اسمك شسالفه ؟؟ 🤔🌞'
 }
 sendMsg(msg.chat_id_,msg.id_,taha[math.random(#taha)])
 end  
 end
-redis:set(lana.."chencher"..msg.sender_user_id_, data.first_name_) 
+redis:set(saske.."chencher"..msg.sender_user_id_, data.first_name_) 
 end,nil) 
 end
 end
 return {
-lana = {
+saske = {
+"^(نعم)$", 
+"^(الاعبين)$", 
+"^(بدء الاسئله)$", 
+"^(ختيارات)$", 
+"^(اسئله)$", 
+"^(الالعاب)$", 
+"^(محيبس)$", 
+"^(تخمين)$", 
 "^(حزوره)$", 
 "^(المختلف)$",
  "^(امثله)$",
-"^(نعم)$",
-"^(الاعبين)$",
-"^(بدء الاسئله)$",
-"^(ختيارات)$",
-"^(اسئله)$",
-"^(الالعاب)$",
-"^(محيبس)$",
-"^(تخمين)$",
-"^(خمن)$",
-"^(بات)$",
+"^(بات)$", 
 '^(تعطيل) (.+)$',
 '^(تفعيل) (.+)$',
 "^(اسرع)$",
 "^(الاسرع)$",
-"^(نقاطي)$",
-"^(ترتيب)$",
-"^(معاني)$",
+"^(مجوهراتي)$", 
+"^(ترتيب)$", 
+"^(معاني)$", 
+"^(بيع مجوهراتي) (%d+)$",
+"^(اضف رسائل) (%d+)$",
+"^(اضف مجوهرات) (%d+)$",
+"^(روليت)$", 
+"^(قائمه الالعاب)$", 
 "^(عكس)$",
 "^(العكس)$", 
 "^(العكسس)$", 
-"^(بيع نقاطي) (%d+)$",
-"^(اضف رسائل) (%d+)$",
-"^(اضف نقاط) (%d+)$",
-"^(روليت)$",
 "^(رياضيات)$",
 "^(الرياضيات)$",
 "^(انكليزي)$",
 "^(الانكليزي)$",
-"^(قائمه الالعاب)$",
  },
- ilana = games,
- dlana = procces,
+ isaske = games,
+ dsaske = procces,
  }
