@@ -861,7 +861,7 @@ end
 
 
 if MsgText[1] == 'الاشتراك' and not MsgText[2] and msg.Admin then
-if not msg.Admin then return "??*¦* هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n🚶" end
+if not msg.Admin then return "📛*¦* هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n🚶" end
 local check_time = redis:ttl(saske..'ExpireDate:'..msg.chat_id_)
 if check_time < 0 then return '*مـفـتـوح *🎖\n✓' end
 year = math.floor(check_time / 31536000)
@@ -939,24 +939,6 @@ end
 
 if MsgText[1]== 'جهاتي' then
 return '🧟‍♂*¦*  عدد جهہآتگ آلمـضـآفهہ‏‏ » 【'..(redis:get(saske..':adduser:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)..'】 . \n🐾'
-end
-
-if MsgText[1]== 'سحكاتي' then
-return '🚸*¦*  عدد سحہكآتگ » 【'..(redis:get(saske..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)..'】  \n🐾'
-end
-
-if MsgText[1] == "تاك للكل" then 
-if not msg.Admin then return "📛*¦* هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n🚶" end
-return ownerlist(msg) .. GetListAdmin(msg) .. whitelist(msg)
-end
-
-if MsgText[1]== 'اسمي' then
-GetUserID(msg.sender_user_id_,function(arg,data)
-local FlterName = FlterName(data.first_name_..'\n\n⚁┇اسمك الثاني ⇜ '..(data.last_name_ or ""),90)
-local Get_info = "⚀┇اسمك الاول ⇜ \n "..FlterName.." \n"
-return sendMsg(msg.chat_id_,msg.id_,Get_info)    
-end,nil)
-return false
 end
 
 
@@ -1157,29 +1139,15 @@ end -- end of insert group
 
 
 if MsgText[1] == 'مسح' and MsgText[2] == 'المطورين'  then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 local mtwren = redis:scard(saske..':SUDO_BOT:')
 if mtwren == 0 then  return "⚙️*¦* عذرا لا يوجد مطورين في البوت  ✖️" end
 redis:del(saske..':SUDO_BOT:') 
 return "📛*¦* تم مسح {* "..mtwren.." *} من المطورين ☔️\n✓"
 end
 
-if MsgText[1] == 'مسح' and MsgText[2] == 'سحكاتي'  then
-local rfih = (redis:get(saske..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
-if rfih == 0 then  return "⚙️*¦* عذرا لا يوجد سحكات لك في البوت  ✖️" end
-redis:del(saske..':edited:'..msg.chat_id_..':'..msg.sender_user_id_)
-return "📛*¦* تم مسح {* "..rfih.." *} من سحكاتك ☔️\n✓"
-end
-
-if MsgText[1] == 'مسح' and MsgText[2] == 'رسائلي'  then
-local msgs = redis:get(saske..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 1
-if rfih == 0 then  return "⚙️*¦* عذرا لا يوجد رسائل لك في البوت  ✖️" end
-redis:del(saske..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_)
-return "📛*¦* تم مسح {* "..msgs.." *} من رسائلك ☔️\n✓"
-end
-
 if MsgText[1] == 'مسح' and MsgText[2] == "قائمه العام"  then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 local addbannds = redis:scard(saske..'gban_users')
 if addbannds ==0 then 
 return "*⚙️¦ قائمة الحظر فارغه .*" 
@@ -1188,7 +1156,7 @@ redis:del(saske..'gban_users')
 return "⚙️*¦* تـم مـسـح { *"..addbannds.." *} من قائمه العام\n✓" 
 end 
 
-if msg.SudoUser then
+if msg.SudoBase then
 
 if MsgText[1] == "رفع مطور" then
 if not MsgText[2] and msg.reply_id then 
@@ -1220,37 +1188,7 @@ return false
 end 
 end
 
-if MsgText[1] == "رفع منشئ اساسي" then
-if not MsgText[2] and msg.reply_id then 
-GetMsgInfo(msg.chat_id_,msg.reply_id,action_by_reply,{msg=msg,cmd="setwhitelist"}) 
-return false
-end
-if MsgText[2] and MsgText[2]:match('^%d+$') then 
-GetUserID(MsgText[2],action_by_id,{msg=msg,cmd="setwhitelist"}) 
-return false
-end
-if MsgText[2] and MsgText[2]:match('@[%a%d_]+') then 
-GetUserName(MsgText[2],action_by_username,{msg=msg,cmd="setwhitelist"}) 
-return false
-end 
-end
-
-if MsgText[1] == "تنزيل منشئ اساسي" then
-if not MsgText[2] and msg.reply_id then 
-GetMsgInfo(msg.chat_id_,msg.reply_id,action_by_reply,{msg=msg,cmd="remwhitelist"}) 
-return false
-end
-if MsgText[2] and MsgText[2]:match('^%d+$') then 
-GetUserID(MsgText[2],action_by_id,{msg=msg,cmd="remwhitelist"}) 
-return false
-end
-if MsgText[2] and MsgText[2]:match('@[%a%d_]+') then 
-GetUserName(MsgText[2],action_by_username,{msg=msg,cmd="remwhitelist"}) 
-return false
-end 
-end
-
-if MsgText[1] == "تنظيف المجموعات 🗑" then
+if MsgText[1] == "تنظيف المجموعات" then
 local groups = redis:smembers(saske..'group:ids')
 local GroupsIsFound = 0
 for i = 1, #groups do 
@@ -1275,7 +1213,7 @@ end)
 end
 return false
 end
-if MsgText[1] == "تنظيف المشتركين 🗑" then
+if MsgText[1] == "تنظيف المشتركين" then
 local pv = redis:smembers(saske..'users')
 local NumPvDel = 0
 for i = 1, #pv do
@@ -1348,13 +1286,8 @@ if not msg.SudoUser then return "📛*¦* هذا الامر يخص {المطور
 return '📮*¦* عدد المجموعات المفعلة » `'..redis:scard(saske..'group:ids')..'`  ➼' 
 end
 
-if MsgText[1] == "المشتركين" or MsgText[1] == "المشتركين 💥" then
-if not msg.SudoUser then return "♦️*┇*هذا الامر يخص {المطور} فقط  \n❕" end
-return '👤*┊*عدد المشتركين في البوت : `'..redis:scard(saske..'users')..'` \n📡'
-end
-
 if MsgText[1] == 'قائمه المجموعات' then 
-if not msg.SudoUser then return "📛*¦* هذا الامر يخص {المطور} فقط  \n🚶" end
+if not msg.SudoBase then return "📛*¦* هذا الامر يخص {المطور} فقط  \n🚶" end
 return chat_list(msg) 
 end
 
@@ -1377,7 +1310,7 @@ end
 
 if MsgText[1] == "اذاعه عام بالتوجيه" or MsgText[1] == "اذاعه عام بالتوجيه 📣" then
 if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور} فقط  \n🚶" end
-if not msg.SudoUser and not redis:get(saske..'lock_brod') then 
+if not msg.SudoBase and not redis:get(saske..'lock_brod') then 
 return "📡*¦* الاذاعه مقفوله من قبل المطور الاساسي  🚶" 
 end
 redis:setex(saske..'fwd:'..msg.sender_user_id_,300, true) 
@@ -1386,7 +1319,7 @@ end
 
 if MsgText[1] == "اذاعه عام" or MsgText[1] == "اذاعه عام 📢" then		
 if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور} فقط  \n🚶" end
-if not msg.SudoUser and not redis:get(saske..'lock_brod') then 
+if not msg.SudoBase and not redis:get(saske..'lock_brod') then 
 return "📡*¦* الاذاعه مقفوله من قبل المطور الاساسي  🚶" 
 end
 redis:setex(saske..'fwd:all'..msg.sender_user_id_,300, true) 
@@ -1395,7 +1328,7 @@ end
 
 if MsgText[1] == "اذاعه خاص" or MsgText[1] == "اذاعه خاص 👤" then		
 if not msg.SudoUser then return "📛*¦* هذا الامر يخص {المطور} فقط  \n🚶" end
-if not msg.SudoUser and not redis:get(saske..'lock_brod') then 
+if not msg.SudoBase and not redis:get(saske..'lock_brod') then 
 return "📡*¦* الاذاعه مقفوله من قبل المطور الاساسي  🚶" 
 end
 redis:setex(saske..'fwd:pv'..msg.sender_user_id_,300, true) 
@@ -1404,7 +1337,7 @@ end
 
 if MsgText[1] == "اذاعه" or MsgText[1] == "اذاعه 🗣" then		
 if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور} فقط  \n🚶" end
-if not msg.SudoUser and not redis:get(saske..'lock_brod') then 
+if not msg.SudoBase and not redis:get(saske..'lock_brod') then 
 return "📡*¦* الاذاعه مقفوله من قبل المطور الاساسي  🚶" 
 end
 redis:setex(saske..'fwd:groups'..msg.sender_user_id_,300, true) 
@@ -1422,17 +1355,17 @@ return GetListGeneralBanned(msg)
 end
 
 if MsgText[1] == "تعطيل" and (MsgText[2] == "التواصل" or MsgText[2]=="التواصل ✖️") then 
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 return lock_twasel(msg) 
 end
 
 if MsgText[1] == "تفعيل" and (MsgText[2] == "التواصل" or MsgText[2]=="التواصل 🔛") then 
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 return unlock_twasel(msg) 
 end
 
 if MsgText[1] == "حظر عام" then
-if not msg.SudoUser then 
+if not msg.SudoBase then 
 return "📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" 
 end
 
@@ -1451,7 +1384,7 @@ end
 end
 
 if MsgText[1] == "الغاء العام" or MsgText[1] == "الغاء عام" then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 
 if not MsgText[2] and msg.reply_id then 
 GetMsgInfo(msg.chat_id_,msg.reply_id,action_by_reply,{msg=msg,cmd="unbanall"}) 
@@ -1492,16 +1425,16 @@ return '📬*¦* تم آلغآء آلآمـر بنجآح \n🌿'
 end  
 
 if (MsgText[1] == '/files' or MsgText[1]== "الملفات 🗂" or MsgText[1]== "الملفات" ) then
-if not msg.SudoUser then return "📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return "📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 return All_File()
 end   
 
 if MsgText[1] == 'اصدار السورس' or MsgText[1] == 'الاصدار' then
-return '👨🏾‍🔧¦ اصدار سورس ساسكي : *v'..version..'* \n📡'
+return '👨🏾‍🔧¦ اصدار سورس ساسكــي : *v'..version..'* \n📡'
 end
 
 if (MsgText[1] == 'تحديث السورس' or MsgText[1] == 'تحديث السورس ™') then
-if not msg.SudoUser then return "📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return "📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 local GetVerison = https.request('https://znznn.github.io/GetVersion.txt') or 0
 if GetVerison > version then
 UpdateSourceStart = true
@@ -1515,12 +1448,12 @@ return false
 end
 
 if MsgText[1] == 'نسخه احتياطيه للمجموعات' then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 return buck_up_groups(msg)
 end 
 
 if MsgText[1] == 'رفع نسخه الاحتياطيه' then
-if not msg.SudoUser then return "📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return "📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 if msg.reply_id then
 GetMsgInfo(msg.chat_id_,msg.reply_id,function(arg, data)
 if data.content_.ID == 'MessageDocument' then
@@ -1544,7 +1477,7 @@ else
 sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا النسخه الاحتياطيه هذا ليست للبوت » ["..Bot_User.."]  \n❕")
 end
 else 
-sendMsg(msg.chat_id_,msg.id_,'📛*¦* عذرا اسم الملف غير مدعوم للنظام او لا يتوافق مع سورس ساسكي يرجى جلب الملف الاصلي الذي قمت بسحبه وبدون تعديل ع الاسم\n❕')
+sendMsg(msg.chat_id_,msg.id_,'📛*¦* عذرا اسم الملف غير مدعوم للنظام او لا يتوافق مع سورس ساسكــي يرجى جلب الملف الاصلي الذي قمت بسحبه وبدون تعديل ع الاسم\n❕')
 end  
 else
 sendMsg(msg.chat_id_,msg.id_,'📛*¦* عذرا الملف ليس بصيغه Json !?\n❕')
@@ -1560,25 +1493,25 @@ return false
 end
 
 if (MsgText[1]=="تيست" or MsgText[1]=="test") then 
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 return "💯 البوت شـغــال 🚀" 
 end
 
 if (MsgText[1]== "ايدي" or MsgText[1]=="ايدي 🆔") and msg.type == "pv" then return  "\n"..msg.sender_user_id_.."\n"  end
 
 if MsgText[1]== "قناة السورس 📡" and msg.type == "pv" then
-local inline = {{{text="قنآهہ‏‏ آلسـورس : ساسكي 🍃",url="t.me/znznn"}}}
-send_key(msg.sender_user_id_,'  [قناة السورس : ساسكي](t.me/znznn)',nil,inline,msg.id_)
+local inline = {{{text="قنآهہ‏‏ آلسـورس :  🍃",url="t.me/znznn"}}}
+send_key(msg.sender_user_id_,'  [قناة السورس : الـزعـيـم](t.me/znznn)',nil,inline,msg.id_)
 return false
 end
 
-if (MsgText[1]== "الاحصائيات 🔍" or MsgText[1]=="الاحصائيات") then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if (MsgText[1]== "الاحصائيات 📈" or MsgText[1]=="الاحصائيات") then
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 return 'الاحصائيات : 📈 \n\n👥*¦* عدد المجموعات المفعله : '..redis:scard(saske..'group:ids')..'\n👤*¦* عدد المشتركين في البوت : '..redis:scard(saske..'users')..'\n📡'
 end
 ---------------[End Function data] -----------------------
 if MsgText[1]=="اضف رد عام" or MsgText[1]=="اضف رد عام ➕" then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 redis:setex(saske..'addrd_all:'..msg.chat_id_..msg.sender_user_id_,300,true)
 redis:del(saske..'allreplay:'..msg.chat_id_..msg.sender_user_id_)
 return "📭¦ حسننا الان ارسل كلمة الرد العام 🍃\n"
@@ -1603,7 +1536,7 @@ end
 end
 
 if MsgText[1]== 'مسح' and MsgText[2]== 'الردود العامه' then
-if not msg.SudoUser then return"♨️ للمطورين فقط ! 💯" end
+if not msg.SudoBase then return"♨️ للمطورين فقط ! 💯" end
 local names 	= redis:exists(saske..'replay:all')
 local photo 	= redis:exists(saske..'replay_photo:group:')
 local voice 	= redis:exists(saske..'replay_voice:group:')
@@ -1620,7 +1553,7 @@ end
 end
 
 if MsgText[1]== 'مسح' and MsgText[2]== 'رد عام' then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 redis:set(saske..'delrdall:'..msg.sender_user_id_,true) 
 return "📭¦ حسننا عزيزي  ✋🏿\n🗯¦ الان ارسل الرد لمسحها من  المجموعات 🍃"
 end
@@ -1656,7 +1589,7 @@ return message..'\n➖➖➖'
 end
 
 if MsgText[1]== 'الردود العامه' or MsgText[1]=='الردود العامه 🗨' then
-if not msg.SudoUser then return "♨️ للمطور فقط ! 💯" end
+if not msg.SudoBase then return "♨️ للمطور فقط ! 💯" end
 local names 	= redis:hkeys(saske..'replay:all')
 local photo 	= redis:hkeys(saske..'replay_photo:group:')
 local voice 	= redis:hkeys(saske..'replay_voice:group:')
@@ -1688,7 +1621,7 @@ return "📭¦ حسننا , الان ارسل كلمه الرد \n-"
 end
 
 if MsgText[1] == "ضع اسم للبوت" or MsgText[1]== 'ضع اسم للبوت ©' then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 redis:setex(saske..'namebot:witting'..msg.sender_user_id_,300,true)
 return"📭¦ حسننا عزيزي  ✋🏿\n🗯¦ الان ارسل الاسم  للبوت 🍃"
 end
@@ -1870,7 +1803,7 @@ sendMsg(msg.chat_id_,msg.id_,text)
 return false
 end
 if MsgText[1]== "م المطور" then
-if not msg.SudoUser then return "🔅¦ للمطور الاساسي فقط  🎖" end
+if not msg.SudoBase then return "🔅¦ للمطور الاساسي فقط  🎖" end
 local text = [[
 📌¦ اوامر المطور 🃏
 
@@ -1913,7 +1846,7 @@ sendMsg(msg.chat_id_,msg.id_,text)
 return false
 end
  if MsgText[1]== "اوامر الملفات" then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 local text = [[
 🤖¦ •⊱ { آوآمر آلملفآت } ⊰•
 
@@ -1966,7 +1899,7 @@ end
 
 if MsgText[1] == "سورس" or MsgText[1]=="السورس" then
 return [[
-    🛠 ┇ تنصـيب سـورس  ساسكي  🔎
+    🛠 ┇ تنصـيب سـورس ســاسكي  🔎
 
  ⇓⇓⇓ 
 
@@ -1978,14 +1911,14 @@ return [[
 » تدخل مـعلومـآتگ مـن توگن ومـعرفگ 
 » وسـوف يعمـل آلبوت بالسـگرين تلقآئيآ ...
 
-💭┇ قناة السورس ☜ @znznn
+💭┇ قناة السورس ☜ @ZNZNN
 
 ]]
 end
 
 if MsgText[1] == "متجر الملفات" or MsgText[1]:lower() == "/store"  then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
-local Get_Files, res = https.request("https://th3bs.github.io/GetFiles.json")
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+local Get_Files, res = https.request("https://znznn.github.io/GetFiles.json")
 if res == 200 then
 local Get_info, res = pcall(JSON.decode,Get_Files);
 if Get_info then
@@ -2016,7 +1949,7 @@ end
 
 
 if MsgText[1]:lower() == "sp" and MsgText[2] then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 local FileName = MsgText[2]:lower()
 local Check_File_is_Found = io.open("plugins/"..FileName,"r")
 if Check_File_is_Found then
@@ -2025,7 +1958,7 @@ TText = "📑| الملف موجود بالفعل \n🔖| تم تحديث الم
 else
 TText = "🔖| تم تثبيت وتفعيل الملف بنجاح \n✓"
 end
-local Get_Files, res = https.request("https://raw.githubusercontent.com/saske/znznn.github.io/master/plugins/"..FileName)
+local Get_Files, res = https.request("https://raw.githubusercontent.com/znznn/znznn.github.io/master/plugins/"..FileName)
 if res == 200 then
 print("DONLOADING_FROM_URL: "..FileName)
 local FileD = io.open("plugins/"..FileName,'w+')
@@ -2040,7 +1973,7 @@ end
 end
 
 if MsgText[1]:lower() == "dp" and MsgText[2] then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 local FileName = MsgText[2]:lower()
 local Check_File_is_Found = io.open("plugins/"..FileName,"r")
 if Check_File_is_Found then
@@ -2063,8 +1996,8 @@ if MsgText[1] == "التاريخ" then
 return "➖\n📆| الـتـاريـخ : "..os.date("%Y/%m/%d")
 end
 
-if MsgText[1] == "تفعيل الاشتراك الاجباري 💯" then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if MsgText[1] == "تفعيل الاشتراك الاجباري" then
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 if redis:get(saske..":UserNameChaneel") then
 return "📑| اهلا عزيزي المطور \n🔖| الاشتراك بالتأكيد مفعل"
 else
@@ -2073,8 +2006,8 @@ return "📑| مرحبا بـك في نظام الاشتراك الاجباري\
 end
 end
 
-if MsgText[1] == "تعطيل الاشتراك الاجباري ♻️" then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if MsgText[1] == "تعطيل الاشتراك الاجباري" then
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 local SubDel = redis:del(saske..":UserNameChaneel")
 if SubDel == 1 then
 return "🔖| تم تعطيل الاشتراك الاجباري . \n✓"
@@ -2083,8 +2016,8 @@ return "🔖| الاشتراك الاجباري بالفعل معطل . \n✓"
 end
 end
 
-if MsgText[1] == "الاشتراك الاجباري ⚠️" then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if MsgText[1] == "الاشتراك الاجباري" then
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 local UserChaneel = redis:get(saske..":UserNameChaneel")
 if UserChaneel then
 return "🔖| اهلا عزيزي المطور \n🔖| الاشتراك الاجباري للقناة : ["..UserChaneel.."]\n✓"
@@ -2093,8 +2026,8 @@ return "🔖| لا يوجد قناة مفعله ع الاشتراك الاجبا
 end
 end
 
-if MsgText[1] == "تغيير الاشتراك الاجباري 🧟‍♂" then
-if not msg.SudoUser then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
+if MsgText[1] == "تغيير الاشتراك الاجباري" then
+if not msg.SudoBase then return"📛*¦* هذا الامر يخص {المطور الاساسي} فقط  \n🚶" end
 redis:setex(saske..":ForceSub:"..msg.sender_user_id_,350,true)
 return "📑| مرحبا بـك في نظام الاشتراك الاجباري\n🔖| الان ارسل معرف قـنـاتـك"
 end
@@ -2116,65 +2049,57 @@ if not msg.SudoUser then
 local msg_pv = tonumber(redis:get(saske..'user:'..msg.sender_user_id_..':msgs') or 0)
 if msg_pv > 5 then
 redis:setex(saske..':mute_pv:'..msg.sender_user_id_,18000,true)   
-return sendMsg(msg.chat_id_,0,'*📛¦* تم حظرك من البوت بسبب التكرار \n🛠 *📛¦* الادمنيه {"..Admins.."} العضو قام بالتكرار لقد قمت بحظره \n🛠') 
+return sendMsg(msg.chat_id_,0,'*📛¦* تم حظرك من البوت بسبب التكرار \n🛠') 
 end
 redis:setex(saske..'user:'..msg.sender_user_id_..':msgs',2,msg_pv+1)
 end
 
 if msg.text=="/start" then
 
-if msg.SudoUser then
-local text = '🙋🏻‍♂┊اهلا عزيزي آلمـطـور ♥\n🔻┊آنت آلمـطـور آلآسـآسـي هنآ 🛠\nـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n\n🚸┊تسـتطـيع‌‏ آلتحگم بكل آلآوآمـر آلمـمـوجودهہ‌‏ بآلگيبورد الخاص بالبوت\n🔺┊فقط آضـغط ع آلآمـر آلذي تريد تنفيذهہ‌‏'
+if msg.SudoBase then
+local text = '🎖¦ آهہ‏‏لآ عزيزي آلمـطـور 🍃\n💰¦ آنتهہ‏‏ آلمـطـور آلآسـآسـي هہ‏‏نآ 🛠\n...\n\n🚸¦ تسـتطـيع‏‏ آلتحگم بگل آلآوآمـر آلمـمـوجودهہ‏‏ بآلگيبورد\n⚖️¦ فقط آضـغط ع آلآمـر آلذي تريد تنفيذهہ‏‏'
 local keyboard = {
-{"ضع اسم للبوت ©","ضع صوره للترحيب 🌄"},
+ {"ضع اسم للبوت ©","ضع صوره للترحيب 🌄"},
  {"تعطيل التواصل ✖️","تفعيل التواصل 🔛"},
-{"تعطيل البوت خدمي","تفعيل البوت خدمي","المطورين 🕹"},
- {"المشتركين 💥","","الاحصائيات 🔍"},
+ {"المطورين 🕹","ايدي 🆔","الاحصائيات 📈"},
  {"اضف رد عام ➕","الردود العامه 🗨"},
- {"اذاعه 🗣","اذاعه خاص 👤"},
-{"اذاعه عام 📢","اذاعه عام بالتوجيه 📣"},
- {"تحديث ♻️","قائمه العام 📜","ايديي🆔"},
-{"تعطيل الاشتراك الاجباري ♻️","تفعيل الاشتراك الاجباري 💯"},
-{"تغيير الاشتراك الاجباري 🧟‍♂","الاشتراك الاجباري ⚠️"},
-{"تنظيف المشتركين 🗑","تنظيف المجموعات 🗑"},
- {"قناة السورس 📡"},
+ {"الملفات 🗂","اذاعه عام بالتوجيه 📣"},
+ {"اذاعه 🗣","اذاعه عام 📢","اذاعه خاص 👤"},
+ {"تحديث ♻️","قائمه العام 📜","قناة السورس 📡"},
  {"تحديث السورس ™"},
  {"الغاء الامر ✖️"}}
 return send_key(msg.sender_user_id_,text,keyboard,nil,msg.id_)
 else
 redis:sadd(saske..'users',msg.sender_user_id_)
 if redis:get(saske..'lock_service') then 
-text = [[⚜┊اهلا انآ بوت آسـمـي   []]..redis:get(saske..':NameBot:')..[[] 🎖
-👨🏻‍✈️┊آختصـآصـي حمـآيهہ‌‏ آلمـجمـوعآت
-📛┊مـن آلسـبآم وآلتوجيهہ‌‏ وآلتگرآر وآلخ...
-🔖┊لتفعيل البوت اتبع مايلي
-⚀┊اضف البوت الى المجموعه
-⚁┊ارفع البوت ادمن في المجموعه
-⚂┊وارسل تفعيل وسيتم تفعيل البوت ورفع مشرفي الكروب تلقائين 
+text = [[💯¦ مـرحبآ آنآ بوت آسـمـي []]..redis:get(saske..':NameBot:')..[[] 🎖
+💰¦ آختصـآصـي حمـآيهہ‏‏ آلمـجمـوعآت
+📛¦ مـن آلسـبآم وآلتوجيهہ‏‏ وآلتگرآر وآلخ...
+🚸¦ البوت خدمي ومتاح للكل 
+👷🏽¦ فقط اضف البوت لمجموعتك وارفعه مشرف  
+  ثم ارسل تفعيل
 
-ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
-🎭┊مـعـرف الـمـطـور : ]]..SUDO_USER..[[
-]]
+⚖️¦ مـعرف آلمـطـور  : ]]..SUDO_USER..[[
+
+👨🏽‍🔧]]
 else
-text = [[⚜┊اهلا انآ بوت آسـمـي  []]..redis:get(saske..':NameBot:')..[[] 🎖
-👨🏻‍✈️┊آختصـآصـي حمـآيهہ‌‏ آلمـجمـوعآت
-📛┊مـن آلسـبآم وآلتوجيهہ‌‏ وآلتگرآر وآلخ...
-🚸┊فقط آلمـطـور يسـتطـيع تفعيل آلبوت
+text = [[💯¦ مـرحبآ آنآ بوت آسـمـي []]..redis:get(saske..':NameBot:')..[[] 🎖
+💰¦ آختصـآصـي حمـآيهہ‏‏ آلمـجمـوعآت
+📛¦ مـن آلسـبآم وآلتوجيهہ‏‏ وآلتگرآر وآلخ...
+🚸¦ فقط آلمـطـور يسـتطـيع تفعيل آلبوت
+⚖️¦ مـعرف آلمـطـور  : ]]..SUDO_USER..[[
 
-ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
-💭┊لتفعيل البوت راسلني 
-🎭┊مـعـرف الـمـطـور  : ]]..SUDO_USER..[[
-]]
+👨🏽‍🔧]]
 end
 xsudouser = SUDO_USER:gsub('@','')
 xsudouser = xsudouser:gsub([[\_]],'_')
-local inline = {{{text="مـطـور الـبـوت ✓",url="t.me/"..xsudouser}}}
+local inline = {{{text="آلمـطـور ™",url="t.me/"..xsudouser}}}
 send_key(msg.sender_user_id_,text,nil,inline,msg.id_)
 return false
 end
 end
  
-if msg.SudoUser then
+if msg.SudoBase then
 if msg.reply_id and msg.text ~= "رفع نسخه الاحتياطيه" then
 GetMsgInfo(msg.chat_id_,msg.reply_id,function(arg,datainfo)
 if datainfo.forward_info_ then
@@ -2328,7 +2253,7 @@ if redis:get(saske..'namebot:witting'..msg.sender_user_id_) then --- استقب�
 redis:del(saske..'namebot:witting'..msg.sender_user_id_)
 redis:set(saske..':NameBot:',msg.text)
 Start_Bot() 
-sendMsg(msg.chat_id_,msg.id_,"??¦ تم تغير اسم البوت  ✋🏿\n🗯¦ الان اسمه "..Flter_Markdown(msg.text).." \n✓")
+sendMsg(msg.chat_id_,msg.id_,"📭¦ تم تغير اسم البوت  ✋🏿\n🗯¦ الان اسمه "..Flter_Markdown(msg.text).." \n✓")
 return false
 end
 
@@ -2403,7 +2328,7 @@ redis:del(saske..'fwd:all'..msg.sender_user_id_)
 local pv = redis:smembers(saske..'users')  
 local groups = redis:smembers(saske..'group:ids')
 local allgp =  #pv + #groups
-if allgp >= 100 then
+if allgp >= 300 then
 sendMsg(msg.chat_id_,msg.id_,'📑| اهلا عزيزي المطور \n🔖| جاري نشر التوجيه للمجموعات وللمشتركين ...')			
 end
 for i = 1, #pv do 
@@ -2432,7 +2357,7 @@ end
 if redis:get(saske..'fwd:pv'..msg.sender_user_id_) then ---- استقبال رساله الاذاعه خاص
 redis:del(saske..'fwd:pv'..msg.sender_user_id_)
 local pv = redis:smembers(saske..'users')
-if #pv >= 100 then
+if #pv >= 300 then
 sendMsg(msg.chat_id_,msg.id_,'📑| اهلا عزيزي المطور \n🔖| جاري نشر الرساله للمشتركين ...')			
 end
 local NumPvDel = 0
@@ -2456,7 +2381,7 @@ end
 if redis:get(saske..'fwd:groups'..msg.sender_user_id_) then ---- استقبال رساله الاذاعه خاص
 redis:del(saske..'fwd:groups'..msg.sender_user_id_)
 local groups = redis:smembers(saske..'group:ids')
-if #groups >= 100 then
+if #groups >= 300 then
 sendMsg(msg.chat_id_,msg.id_,'📑| اهلا عزيزي المطور \n🔖| جاري نشر الرساله للمجموعات ...')			
 end
 local NumGroupsDel = 0
@@ -2513,8 +2438,10 @@ end
  
 
 if msg.text and msg.type == "channel" then
-if msg.text:match("^"..Bot_Name.." غادر$") and (msg.SudoUser or msg.SudoUser or msg.Director) then
-sendMsg(msg.chat_id_,msg.id_,'اسف حبي ماغادر') 
+if msg.text:match("^"..Bot_Name.." غادر$") and (msg.SudoBase or msg.SudoBase or msg.Director) then
+sendMsg(msg.chat_id_,msg.id_,'اوك باي 😢💔💯') 
+rem_data_group(msg.chat_id_)
+StatusLeft(msg.chat_id_,our_id)
 return false
 end
 end
@@ -3374,7 +3301,7 @@ elseif Text== "😍"  then return sendMsg(msg.chat_id_,msg.id_," يَمـه̷̐ 
 elseif Text== "اكرهك"  then return sendMsg(msg.chat_id_,msg.id_,"ديله شلون اطيق خلقتك اني😾🖖🏿🕷")
 elseif Text== "اريد اكبل" then return sendMsg(msg.chat_id_,msg.id_,"خخ اني هم اريد اكبل قابل ربي وحد😹🙌️")
 elseif Text== "ضوجه"  then return sendMsg(msg.chat_id_,msg.id_,"شي اكيد الكبل ماكو 😂 لو بعدك/ج مازاحف/ة 🙊😋")
-elseif Text== "اروح اصلي" then return sendMsg(msg.chat_id_,msg.id_,"انته حافظ سوره الفاتحة??❤️️")
+elseif Text== "اروح اصلي" then return sendMsg(msg.chat_id_,msg.id_,"انته حافظ سوره الفاتحة😍❤️️")
 elseif Text== "صاك"  then return sendMsg(msg.chat_id_,msg.id_,"زاحفه 😂 منو هذا دزيلي صورهه")
 elseif Text== "اجيت" or Text=="اني اجيت" then return  sendMsg(msg.chat_id_,msg.id_,"كْـٌﮩٌﮧٌ﴿😍﴾ـﮩٌول الـ୭ـهـٌ୭ـْلا❤️")
 elseif Text== "طفي السبلت" then return sendMsg(msg.chat_id_,msg.id_,"تم اطفاء السبلت بنجاح 🌚🍃")
@@ -3498,7 +3425,7 @@ else
 local DaysEx = (redis:ttl(saske..'ExpireDate:'..msg.chat_id_) / 86400)
 if tonumber(DaysEx) > 0.208 and ExpireDate ~= -1 and msg.Admin then
 if tonumber(DaysEx + 1) == 1 and not msg.SudoUser then
-sendMsg(msg.chat_id_,'🕵🏼️‍♀️¦ باقي يوم واحد وينتهي الاشتراك ✋🏿\n👨🏾‍🔧¦ راسل امطور للتجديد '..SUDO_USER..'\n📛')
+sendMsg(msg.chat_id_,'🕵🏼️‍♀️¦ باقي يوم واحد وينتهي الاشتراك ✋🏿\n👨🏾‍🔧¦ راسل المطور للتجديد '..SUDO_USER..'\n📛')
 end 
 end 
 end
@@ -3674,7 +3601,7 @@ saske = {
 "^(ايدي 🆔)$",
 "^(قناة السورس 📡)$",
 "^(الاحصائيات)$",
-"^(الاحصائيات 🔍)$",
+"^(الاحصائيات 📈)$",
 "^(اضف رد عام)$",
 "^(اضف رد عام ➕)$",
 "^(مسح الردود)$",
@@ -3689,8 +3616,8 @@ saske = {
 "^(/UpdateSource)$",
 "^(تحديث السورس ™)$",
 "^(تحديث السورس)$",
-"^(تنظيف المجموعات 🗑)$",
-"^(تنظيف المشتركين 🗑)$",
+"^(تنظيف المجموعات)$",
+"^(تنظيف المشتركين)$",
 "^(رتبتي)$",
 "^(ضع اسم للبوت ©)$",
 "^(ضع صوره للترحيب 🌄)$",
@@ -3716,20 +3643,15 @@ saske = {
 "^(السيرفر)$",
 "^(نسخه احتياطيه للمجموعات)$",
 "^(رفع نسخه الاحتياطيه)$", 
-"^(تفعيل الاشتراك الاجباري 💯)$", 
-"^(تعطيل الاشتراك الاجباري ♻️)$", 
-"^(تغيير الاشتراك الاجباري 🧟‍♂)$", 
-"^(الاشتراك الاجباري ⚠️)$", 
+"^(تفعيل الاشتراك الاجباري)$", 
+"^(تعطيل الاشتراك الاجباري)$", 
+"^(تغيير الاشتراك الاجباري)$", 
+"^(الاشتراك الاجباري)$", 
 "^(ادفرني)$", 
 "^(مغادره)$", 
 "^(احظرني)$", 
 "^(اطردني)$", 
 "^(جهاتي)$", 
-"^(سحكاتي)$", 
-"^(اسمي)$", 
-"^(تاك للكل)$", 
-"^(المشتركين 💥)$", 
-"^(المجموعات 🔝)$", 
 
 
 "^(السورس)$",
