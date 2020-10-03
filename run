@@ -3,10 +3,10 @@
 
 #      ▇▇▇                                       ▇▇▇               ▄▇▇▇▇▇▄                 ▇▇                                    ▇▇                
 #      ▇▇        ▇                        ▇       ▇▇             ▄▇                ▇▄                        ▇▇                  ▇▇
-#      ▇▇          ▇ @auuuvu   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
-#      ▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @auuuvu
-#      ▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @uop70  ▇▄                 ▇▇                 ▇▇
-#      ▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source TH3max BY @uop70
+#      ▇▇          ▇ @A7128b   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
+#      ▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @M9M99
+#      ▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @A7128b  ▇▄                 ▇▇                 ▇▇
+#      ▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source @znznn BY @A7128b
 #---------------------------------------------------------------------
 cd $(cd $(dirname $0); pwd)
  
@@ -24,14 +24,14 @@ if [ "$Version" == "18" ];then
 echo -e "${GREEN}
 ▇▇▇                                       ▇▇▇               ▄▇▇▇▇▇▄                 ▇▇                                    ▇▇                
 ▇▇        ▇                        ▇       ▇▇             ▄▇                ▇▄                        ▇▇                  ▇▇
-▇▇          ▇ @auuuvu   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
-▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @auuuvu
-▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @uop70  ▇▄                 ▇▇                 ▇▇
-▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source TH3max BY @uop70
+▇▇          ▇ @auA7128buuvu   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
+▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @A7128b
+▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @M9M99  ▇▄                 ▇▇                 ▇▇
+▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source M9M99 BY @A7128b
 ----------------------------------------------------------------------${CNIL}"
 echo -e "${RED}| للاسف لايمكنك تنصيب السورس ع نظام اوبنتو {${Version}} يجب ان يكون على اصدار  اقل مثلا  ${SMAY}14 او 16
 ${CNIL}";
-echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source Th3max 
+echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source Th3AVIRA 
 ${CNIL}";
 exit;
 fi
@@ -41,7 +41,7 @@ if [ ! -f "./TG" ]; then
 echo -e "${RED}
 ¦
 ¦ CAUTION:${WHITB} Your Not Dwonload TG .
-¦ NOW I Run File ${Yellow}./run${WHITB} To install ${SMAY}Source TH3max${CNIL} . \n
+¦ NOW I Run File ${Yellow}./run${WHITB} To install ${SMAY}Source TH3AVIRA${CNIL} . \n
 \n\n"
 chmod +x ./ins
 ./ins
@@ -70,10 +70,10 @@ sudo rm -fr ../.telegram-cli
 done
 else
 
-if ! screen -list | grep -q "max"; then
-screen -S max ./run R
+if ! screen -list | grep -q "AVIRA"; then
+screen -S AVIRA ./run R
 fi
-screen -X -S max kill
-screen -S max ./run R
+screen -X -S AVIRA kill
+screen -S AVIRA ./run R
 fi
 
